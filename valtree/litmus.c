@@ -45,8 +45,8 @@ int cpu1 = 1;
 int r_x;
 int r_y;
 
-int x;
-int y;
+atomic_t x = ATOMIC_INIT(0);
+atomic_t y = ATOMIC_INIT(0);
 
 void *thread_reader(void *arg)
 {
@@ -54,7 +54,7 @@ void *thread_reader(void *arg)
 	fake_acquire_cpu(get_cpu());
 
 	rcu_read_lock();	
-        r_x = x;
+        r_x = atomic_read(&x);
 	if (!IS_ENABLED(IRQ_THREADS))
 		do_IRQ();
 	if (IS_ENABLED(FORCE_FAILURE_4)) {
@@ -66,7 +66,7 @@ void *thread_reader(void *arg)
 		if (!IS_ENABLED(IRQ_THREADS))
 			do_IRQ();
 	}
-	r_y = y; 
+	r_y = atomic_read(&y); 
 	rcu_read_unlock();
 	if (!IS_ENABLED(FORCE_FAILURE_1) && !IS_ENABLED(FORCE_FAILURE_4)
 	    && !IS_ENABLED(FORCE_FAILURE_5)) {
@@ -84,11 +84,11 @@ void *thread_update(void *arg)
 	set_cpu(cpu0);
 	fake_acquire_cpu(get_cpu());
 
-	x = 1;
+	atomic_set(&x, 1);
 	synchronize_rcu();
 	if (IS_ENABLED(ASSERT_0))
 		assert(0);
-	y = 1;
+	atomic_set(&y, 1);
 
 	fake_release_cpu(get_cpu());
 	return NULL;

@@ -122,12 +122,14 @@ typedef struct {
 } atomic_long_t;
 
 /* Boolean data types */
+#if !defined(__STDBOOL_H)
 typedef _Bool bool;
 
 enum {
 	false	= 0,
 	true	= 1
 };
+#endif
 
 /* Integer types */
 typedef unsigned long ulong;
@@ -600,7 +602,7 @@ int noassert;
 
 
 /* Declarations to emulate CPU, interrupts, and scheduling.  */
-void __VERIFIER_assume(int);
+/* __VERIFIER_assume is already declared in genmc_internal.h */
 
 int get_cpu(void);
 void set_cpu(int);

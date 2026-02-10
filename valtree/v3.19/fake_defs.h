@@ -26,6 +26,7 @@
 #include <string.h>
 #include <pthread.h>
 #include <assert.h>
+#include <stdatomic.h>
 
 /* Definitions taken from the Linux Kernel (v.3.19) */
 
@@ -188,24 +189,21 @@ do {                                                                    \
 # define smp_mb__after_unlock_lock()     do { } while (0)
 #endif /* #ifdef POWERPC */
 
-/* Atomic data types */
-typedef struct {
-	int counter;
-} atomic_t;
+/* Atomic data types - using C11 _Atomic */
+typedef _Atomic(int) atomic_t;
+typedef _Atomic(long) atomic_long_t;
 
-typedef struct {
-	long counter;
-} atomic_long_t;
+#define ATOMIC_INIT(i)  (i)
 
-#define ATOMIC_INIT(i)  { (i) }
-
-/* Boolean data types */
+/* Boolean data types - skip if C11 stdbool.h is already included */
+#if !defined(__STDBOOL_H)
 typedef _Bool bool;
 
 enum {
 	false	= 0,
 	true	= 1
 };
+#endif
 
 /* Integer types */
 typedef unsigned long ulong;
@@ -660,29 +658,30 @@ int noassert;
 	__ret_warn_on;				\
 })
 
-#define panic(msg) { perror(msg); assert(0); }
+#define panic(msg) { fprintf(stderr, "PANIC: %s\n", msg); assert(0); }
 #define IS_ERR(x) 0
 
 /*
- * Atomic operations based on cheater definitions and gcc language extensions.
- * These language extensions are also supported by the clang compiler.
- * Note that these operations are supported under SC, TSO and PSO in Nidhugg,
- * but only for the model __ATOMIC_SEQ_CST, even if otherwise specified.
+ * C11 Atomic operations
+ * Using standard C11 _Atomic and atomic_* functions
  */
-#define atomic_add(i, v) __atomic_add_fetch(&(v)->counter, i, __ATOMIC_RELAXED)
-#define atomic_add_return(i, v) atomic_add(i, v)
-#define atomic_sub(i, v) __atomic_sub_fetch(&(v)->counter, i, __ATOMIC_RELAXED)
-#define atomic_inc(v) atomic_add(1, v)
-#define atomic_inc_return(v) atomic_inc(v)
-#define atomic_dec(v) atomic_sub(1, v)
-#define atomic_dec_and_test(v) !atomic_dec(v)
-#define atomic_set(v, i) (v)->counter = i
-#define atomic_read(v) ACCESS_ONCE((v)->counter)
-#define atomic_cmpxchg(v, old, new)					\
-	__atomic_compare_exchange(&(v)->counter, &old, &new, 0,		\
-				  __ATOMIC_RELAXED, __ATOMIC_RELAXED)
-#define xchg(ptr, val) __atomic_exchange_n(ptr, val, __ATOMIC_RELAXED)
-#define atomic_xchg(ptr, val) (xchg(&(ptr)->counter, (val)))
+#define atomic_read(v) atomic_load_explicit(v, memory_order_relaxed)
+#define atomic_set(v, i) atomic_store_explicit(v, i, memory_order_relaxed)
+#define atomic_add(i, v) atomic_fetch_add_explicit(v, i, memory_order_relaxed)
+#define atomic_add_return(i, v) (atomic_add(i, v) + (i))
+#define atomic_sub(i, v) atomic_fetch_sub_explicit(v, i, memory_order_relaxed)
+#define atomic_inc(v) atomic_fetch_add_explicit(v, 1, memory_order_relaxed)
+#define atomic_inc_return(v) (atomic_inc(v) + 1)
+#define atomic_dec(v) atomic_fetch_sub_explicit(v, 1, memory_order_relaxed)
+#define atomic_dec_and_test(v) !(atomic_dec(v) - 1)
+#define atomic_cmpxchg(v, old, new) ({			\
+	__typeof__(old) __old = (old);			\
+	atomic_compare_exchange_strong_explicit(v, &__old, new, \
+		memory_order_relaxed, memory_order_relaxed); \
+	__old;						\
+})
+#define xchg(ptr, val) atomic_exchange_explicit((_Atomic(__typeof__(*(ptr))) *)(ptr), val, memory_order_relaxed)
+#define atomic_xchg(ptr, val) (xchg(&(ptr), val))
 
 #define atomic_long_add(i, v) atomic_add(i, v)
 #define atomic_long_add_return(i, v) atomic_add_return(i, v)
@@ -731,7 +730,7 @@ unsigned long volatile __jiffy_data jiffies;
 #define early_param(str,var)
 
 /* Declarations to emulate CPU, interrupts, and scheduling.  */
-void __VERIFIER_assume(int);
+/* __VERIFIER_assume is already declared in genmc_internal.h, so we skip it */
 
 int get_cpu(void);
 void set_cpu(int);
