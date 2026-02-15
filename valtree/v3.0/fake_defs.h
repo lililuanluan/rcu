@@ -582,9 +582,9 @@ int noassert;
  * Note that these operations are supported under SC, TSO and PSO in Nidhugg,
  * but only for the model __ATOMIC_SEQ_CST, even if otherwise specified.
  */
-#define atomic_add(i, v) __atomic_add_fetch(&(v)->counter, i, __ATOMIC_RELAXED)
+#define atomic_add(i, v) (atomic_fetch_add_explicit(&(v)->counter, i, memory_order_relaxed) + (i)) // returns the added value`
 #define atomic_add_return(i, v) atomic_add(i, v)
-#define atomic_sub(i, v) __atomic_sub_fetch(&(v)->counter, i, __ATOMIC_RELAXED)
+#define atomic_sub(i, v) (atomic_fetch_sub_explicit(&(v)->counter, i, memory_order_relaxed) - (i))
 #define atomic_inc(v) atomic_add(1, v)
 #define atomic_inc_return(v) atomic_inc(v)
 #define atomic_dec(v) atomic_sub(1, v)
@@ -592,8 +592,8 @@ int noassert;
 #define atomic_set(v, i) (v)->counter = i
 #define atomic_read(v) ACCESS_ONCE((v)->counter)
 #define atomic_cmpxchg(v, old, new)					\
-	__atomic_compare_exchange(&(v)->counter, &old, &new, 0,		\
-				  __ATOMIC_RELAXED, __ATOMIC_RELAXED)
+	atomic_compare_exchange_strong_explicit(&(v)->counter, &old, new,\
+				  memory_order_relaxed, memory_order_relaxed)
 
 #define atomic_long_add(i, v) atomic_add(i, v)
 #define atomic_long_add_return(i, v) atomic_add_return(i, v)
