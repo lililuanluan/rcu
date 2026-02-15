@@ -189,7 +189,7 @@ typedef unsigned long long u64;
 #define LLONG_MAX	((long long)(~0ULL>>1))
 #define LLONG_MIN	(-LLONG_MAX - 1)
 #define ULLONG_MAX	(~0ULL)
-#define SIZE_MAX	(~(size_t)0)
+// #define SIZE_MAX	(~(size_t)0)
 
 #define U8_MAX		((u8)~0U)
 #define S8_MAX		((s8)(U8_MAX>>1))
@@ -616,7 +616,8 @@ int noassert;
 #define prefetch(next) do { } while (0)
 
 /* More CPU-relevant definitions, CONFIG_HOTPLUG_CPU=n  */
-unsigned long volatile __jiffy_data jiffies;
+// unsigned long volatile __jiffy_data jiffies;
+_Atomic unsigned long jiffies;
 
 #define cpu_is_offline(cpu) 0
 #define cpu_is_online(cpu) 1
@@ -645,7 +646,7 @@ unsigned long volatile __jiffy_data jiffies;
 
 
 /* Declarations to emulate CPU, interrupts, and scheduling.  */
-void __VERIFIER_assume(int);
+// void __VERIFIER_assume(int);
 
 int get_cpu(void);
 void set_cpu(int);
