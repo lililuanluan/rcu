@@ -76,13 +76,13 @@
 
 /* Optimization barrier */
 /* The "volatile" is due to gcc bugs */
-#define barrier() __asm__ volatile("": : :"memory")
+#define barrier() atomic_signal_fence(memory_order_seq_cst)
 
 /* Other barriers -- x86 config by default */
 #ifdef PSO
-# define mb()    __asm__ volatile("mfence":::"memory")
-# define rmb()   __asm__ volatile("lfence":::"memory")
-# define wmb()   __asm__ volatile("sfence" ::: "memory")
+# define mb()    atomic_thread_fence(memory_order_seq_cst)
+# define rmb()   atomic_thread_fence(memory_order_acquire)
+# define wmb()   atomic_thread_fence(memory_order_release)
 
 # define dma_rmb()       barrier()
 # define dma_wmb()       barrier()
@@ -96,17 +96,12 @@
 
 # define smp_store_release(p, v)			\
 	do {						\
-		barrier();				\
-		smp_mb();				\
-		ACCESS_ONCE(*p) = (v);			\
+		atomic_store_explicit((_Atomic __typeof__(*p) *)(p), (v), memory_order_release); \
 	} while (0)
 
 # define smp_load_acquire(p)				\
 	({						\
-		__typeof__(*p) ___p1 = ACCESS_ONCE(*p);	\
-							\
-		barrier();				\
-		___p1;					\
+		atomic_load_explicit((_Atomic __typeof__(*p) *)(p), memory_order_acquire); \
 	})
 
 # define smp_mb__before_atomic() smp_mb()
@@ -116,9 +111,9 @@
 
 # define smp_mb__after_unlock_lock()     do { } while (0)
 #else /* #ifdef PSO */
-# define mb()    __asm__ volatile("mfence":::"memory")
-# define rmb()   __asm__ volatile("lfence":::"memory")
-# define wmb()   __asm__ volatile("sfence" ::: "memory")
+# define mb()    atomic_thread_fence(memory_order_seq_cst)
+# define rmb()   atomic_thread_fence(memory_order_acquire)
+# define wmb()   atomic_thread_fence(memory_order_release)
 
 # define dma_rmb()       barrier()
 # define dma_wmb()       barrier()
@@ -132,16 +127,12 @@
 
 # define smp_store_release(p, v)			\
 	do {						\
-		barrier();				\
-		ACCESS_ONCE(*p) = (v);			\
+		atomic_store_explicit((_Atomic __typeof__(*p) *)(p), (v), memory_order_release); \
 	} while (0)
 
 # define smp_load_acquire(p)				\
 	({						\
-		__typeof__(*p) ___p1 = ACCESS_ONCE(*p);	\
-							\
-		barrier();				\
-		___p1;					\
+		atomic_load_explicit((_Atomic __typeof__(*p) *)(p), memory_order_acquire); \
 	})
 
 # define smp_mb__before_atomic() barrier()
