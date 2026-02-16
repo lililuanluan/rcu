@@ -73,7 +73,8 @@
 # define __maybe_unused         /* unimplemented */
 #endif
 
-#define ACCESS_ONCE(x) (*(volatile __typeof__(x) *)&(x))
+#define ACCESS_ONCE(x) __atomic_load_n(&(x), __ATOMIC_RELAXED)
+#define WRITE_ONCE(x, v) __atomic_store_n(&(x), (v), __ATOMIC_RELAXED)
 #define ATOMIC_INIT(i)  { (i) }
 
 /* Optimization barrier */
@@ -589,8 +590,8 @@ int noassert;
 #define atomic_inc_return(v) atomic_inc(v)
 #define atomic_dec(v) atomic_sub(1, v)
 #define atomic_dec_and_test(v) !atomic_dec(v)
-#define atomic_set(v, i) (v)->counter = i
-#define atomic_read(v) ACCESS_ONCE((v)->counter)
+#define atomic_set(v, i) atomic_store_explicit(&(v)->counter, i, memory_order_relaxed)
+#define atomic_read(v) atomic_load_explicit(&(v)->counter, memory_order_relaxed)
 #define atomic_cmpxchg(v, old, new)					\
 	atomic_compare_exchange_strong_explicit(&(v)->counter, &old, new,\
 				  memory_order_relaxed, memory_order_relaxed)
