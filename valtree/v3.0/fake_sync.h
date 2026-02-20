@@ -257,7 +257,7 @@ void mutex_unlock(struct mutex *l)
  */
 void init_completion(struct completion *x)
 {
-        x->done = 0;
+        WRITE_ONCE(x->done, 0);
         init_waitqueue_head(&x->wait);
 }
 
@@ -266,14 +266,14 @@ void wait_for_completion(struct completion *x)
 	might_sleep();
 
         fake_release_cpu(get_cpu()); 
-	while (!x->done)
+	while (!READ_ONCE(x->done))
 		;
 	fake_acquire_cpu(get_cpu());
 }
 	
 void complete(struct completion *x)
 {
-	x->done++;
+	__atomic_add_fetch(&x->done, 1, __ATOMIC_SEQ_CST);
 }
 
 #endif /* __FAKE_SYNC_H */
