@@ -73,7 +73,10 @@
 # define __maybe_unused         /* unimplemented */
 #endif
 
-#define ACCESS_ONCE(x) (*(volatile __typeof__(x) *)&(x))
+// A READ_ONCE(), WRITE_ONCE(), and the now-obsolete ACCESS_ONCE() accesses may be modeled as a volatile memory_order_relaxed access.
+#define ACCESS_ONCE(x) __atomic_load_n(&(x), __ATOMIC_RELAXED) // = READ_ONCE(x)
+#define READ_ONCE(x) __atomic_load_n(&(x), __ATOMIC_RELAXED)
+#define WRITE_ONCE(x, v) __atomic_store_n(&(x), (v), __ATOMIC_RELAXED)
 #define ATOMIC_INIT(i)  { (i) }
 
 /* Optimization barrier */
