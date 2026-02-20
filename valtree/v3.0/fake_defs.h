@@ -654,7 +654,7 @@ unsigned long volatile __jiffy_data jiffies;
 
 
 /* Declarations to emulate CPU, interrupts, and scheduling.  */
-void __VERIFIER_assume(int);
+// void __VERIFIER_assume(int);
 
 int get_cpu(void);
 void set_cpu(int);
