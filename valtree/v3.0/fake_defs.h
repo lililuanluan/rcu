@@ -198,7 +198,7 @@ typedef unsigned long long u64;
 #define LLONG_MAX	((long long)(~0ULL>>1))
 #define LLONG_MIN	(-LLONG_MAX - 1)
 #define ULLONG_MAX	(~0ULL)
-#define SIZE_MAX	(~(size_t)0)
+// #define SIZE_MAX	(~(size_t)0)
 
 #define U8_MAX		((u8)~0U)
 #define S8_MAX		((s8)(U8_MAX>>1))
@@ -489,7 +489,7 @@ int rcu_expedited;
 #define cpumask_clear_cpu(cpu_id, cm) do { } while (0)
 #define cpumask_weight(cm) 0
 #define try_stop_cpus(exp, fun, arg) 0
-#define EAGAIN 0
+// #define EAGAIN 0
 #define free_cpumask_var(cm) do { } while (0)
 #define udelay(time) do { } while (0)
 
