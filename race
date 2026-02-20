@@ -1,0 +1,759 @@
+GenMC v0.10.2 (LLVM 16.0.0)
+Copyright (C) 2024 MPI-SWS. All rights reserved.
+
+*** Compilation complete.
+*** Transformation complete.
+Error: Non-atomic race!
+Event (1, 19) conflicts with event (0, 392) in graph:
+<-1, 0> main:
+	(0, 1): Wna (rcu_scheduler_fully_active, 1) L.111
+	(0, 2): Rna (stderr, 0x0) [INIT] rcutree_plugin.h:910
+	(0, 3): Rna (rcu_sched_state.levelcnt[0], 1) [INIT] rcutree.c:2020
+	(0, 4): Wna (rcu_sched_state.levelspread[0], 2) rcutree.c:2021
+	(0, 5): Rna (rcu_sched_state.levelspread[0], 2) [(0, 4)] rcutree.c:2053
+	(0, 6): Rna (rcu_sched_state.level[0], 0x8000000000000000) [INIT] rcutree.c:2054
+	(0, 7): Rna (rcu_sched_state.levelcnt[0], 1) [INIT] rcutree.c:2055
+	(0, 8): Wna (rcu_sched_state.node[0].lock.__private, 0) pthread.h:348
+	(0, 9): Wna (rcu_sched_state.node[0].gpnum, 0) rcutree.c:2059
+	(0, 10): Wna (rcu_sched_state.node[0].qsmask, 0) rcutree.c:2060
+	(0, 11): Wna (rcu_sched_state.node[0].grpmask, 0) rcutree.c:2061
+	(0, 12): Wna (rcu_sched_state.node[0].grpnum, 0) rcutree.c:2062
+	(0, 13): Wna (rcu_sched_state.node[0].parent, 1) rcutree.c:2063
+	(0, 14): Rna (rcu_sched_state.node[0].parent, 1) [(0, 13)] rcutree.c:2064
+	(0, 15): Wna (rcu_sched_state.node[0].parent, 0) rcutree.c:2067
+	(0, 16): Wna (rcu_sched_state.node[0].grplo, 0) rcutree.c:2068
+	(0, 17): Wna (rcu_sched_state.node[0].blkd_tasks.next, 0x0) rcutree.c:2069
+	(0, 18): Wna (rcu_sched_state.node[0].parent, 0) rcutree.c:2076
+	(0, 19): Wna (rcu_sched_state.node[0].blkd_tasks.prev, 0x8000000000000058) fake_defs.h:248
+	(0, 20): Wna (rcu_sched_state.node[0].gp_tasks, 0x8000000000000058) fake_defs.h:249
+	(0, 21): Rna (rcu_sched_state.levelcnt[0], 1) [INIT] rcutree.c:2055
+	(0, 22): Wna (rcu_sched_state.rda, 0x8000000000000250) rcutree.c:2081
+	(0, 23): Rna (rcu_sched_state.level[0], 0x8000000000000000) [INIT] rcutree.c:2082
+	(0, 24): Rna (rcu_sched_state.node[0].parent, 1) [(0, 13)] rcutree.c:2084
+	(0, 25): Rna (rcu_sched_state.rda, 0x8000000000000250) [(0, 22)] rcutree.c:2086
+	(0, 26): Wna (rcu_sched_data[0].mynode, 0x8000000000000000) rcutree.c:2086
+	(0, 27): Rna (rcu_sched_state.rda, 0x8000000000000250) [(0, 22)] rcutree.c:1858
+	(0, 28): Rna (local_irq_depth[0], 0) [INIT] fake_sched.h:137
+	(0, 29): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(0, 30): CRacq (irq_lock[0].__private, 0) [INIT] pthread.h:372
+	(0, 31): CWacq (irq_lock[0].__private, 1)
+	(0, 32): Far fake_sync.h:81
+	(0, 33): CRacq (rcu_sched_state.node[0].lock.__private, 0) [(0, 8)] pthread.h:372
+	(0, 34): CWacq (rcu_sched_state.node[0].lock.__private, 1)
+	(0, 35): Rna (rcu_sched_data[0].mynode, 0x8000000000000000) [(0, 26)] rcutree.c:1863
+	(0, 36): Rna (rcu_sched_state.node[0].grpnum, 0) [(0, 12)] rcutree.c:1863
+	(0, 37): Wna (rcu_sched_data[0].grpmask, 1) rcutree.c:1863
+	(0, 38): Wna (rcu_sched_data[0].nxtlist, 0x0) rcutree.c:1864
+	(0, 39): Wna (rcu_sched_data[0].nxttail[0], 0x8000000000000280) rcutree.c:1866
+	(0, 40): Wna (rcu_sched_data[0].nxttail[1], 0x8000000000000280) rcutree.c:1866
+	(0, 41): Wna (rcu_sched_data[0].nxttail[2], 0x8000000000000280) rcutree.c:1866
+	(0, 42): Wna (rcu_sched_data[0].nxttail[3], 0x8000000000000280) rcutree.c:1866
+	(0, 43): Wna (rcu_sched_data[0].qlen, 0) rcutree.c:1867
+	(0, 44): Wna (rcu_sched_data[0].dynticks, 0x8000000000000690) rcutree.c:1869
+	(0, 45): Wna (rcu_sched_data[0].cpu, 0) rcutree.c:1871
+	(0, 46): Wrel (rcu_sched_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 47): Rna (local_irq_depth[0], 1) [(0, 29)] fake_sched.h:145
+	(0, 48): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(0, 49): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(0, 50): Far fake_sync.h:91
+	(0, 51): Rna (rcu_sched_state.node[0].parent, 1) [(0, 13)] rcutree.c:2084
+	(0, 52): Rna (rcu_sched_state.rda, 0x8000000000000250) [(0, 22)] rcutree.c:2086
+	(0, 53): Wna (rcu_sched_data[1].mynode, 0x8000000000000000) rcutree.c:2086
+	(0, 54): Rna (rcu_sched_state.rda, 0x8000000000000250) [(0, 22)] rcutree.c:1858
+	(0, 55): Rna (local_irq_depth[0], 0) [(0, 48)] fake_sched.h:137
+	(0, 56): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(0, 57): CRacq (irq_lock[0].__private, 0) [(0, 49)] pthread.h:372
+	(0, 58): CWacq (irq_lock[0].__private, 1)
+	(0, 59): Far fake_sync.h:81
+	(0, 60): CRacq (rcu_sched_state.node[0].lock.__private, 0) [(0, 46)] pthread.h:372
+	(0, 61): CWacq (rcu_sched_state.node[0].lock.__private, 1)
+	(0, 62): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:1863
+	(0, 63): Rna (rcu_sched_state.node[0].grpnum, 0) [(0, 12)] rcutree.c:1863
+	(0, 64): Wna (rcu_sched_data[1].grpmask, 2) rcutree.c:1863
+	(0, 65): Wna (rcu_sched_data[1].nxtlist, 0x0) rcutree.c:1864
+	(0, 66): Wna (rcu_sched_data[1].nxttail[0], 0x8000000000000388) rcutree.c:1866
+	(0, 67): Wna (rcu_sched_data[1].nxttail[1], 0x8000000000000388) rcutree.c:1866
+	(0, 68): Wna (rcu_sched_data[1].nxttail[2], 0x8000000000000388) rcutree.c:1866
+	(0, 69): Wna (rcu_sched_data[1].nxttail[3], 0x8000000000000388) rcutree.c:1866
+	(0, 70): Wna (rcu_sched_data[1].qlen, 0) rcutree.c:1867
+	(0, 71): Wna (rcu_sched_data[1].dynticks, 0x800000000000069c) rcutree.c:1869
+	(0, 72): Wna (rcu_sched_data[1].cpu, 1) rcutree.c:1871
+	(0, 73): Wrel (rcu_sched_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 74): Rna (local_irq_depth[0], 1) [(0, 56)] fake_sched.h:145
+	(0, 75): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(0, 76): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(0, 77): Far fake_sync.h:91
+	(0, 78): Rna (rcu_bh_state.levelcnt[0], 1) [INIT] rcutree.c:2020
+	(0, 79): Wna (rcu_bh_state.levelspread[0], 2) rcutree.c:2021
+	(0, 80): Rna (rcu_bh_state.levelspread[0], 2) [(0, 79)] rcutree.c:2053
+	(0, 81): Rna (rcu_bh_state.level[0], 0x8000000000000128) [INIT] rcutree.c:2054
+	(0, 82): Rna (rcu_bh_state.levelcnt[0], 1) [INIT] rcutree.c:2055
+	(0, 83): Wna (rcu_bh_state.node[0].lock.__private, 0) pthread.h:348
+	(0, 84): Wna (rcu_bh_state.node[0].gpnum, 0) rcutree.c:2059
+	(0, 85): Wna (rcu_bh_state.node[0].qsmask, 0) rcutree.c:2060
+	(0, 86): Wna (rcu_bh_state.node[0].grpmask, 0) rcutree.c:2061
+	(0, 87): Wna (rcu_bh_state.node[0].grpnum, 0) rcutree.c:2062
+	(0, 88): Wna (rcu_bh_state.node[0].parent, 1) rcutree.c:2063
+	(0, 89): Rna (rcu_bh_state.node[0].parent, 1) [(0, 88)] rcutree.c:2064
+	(0, 90): Wna (rcu_bh_state.node[0].parent, 0) rcutree.c:2067
+	(0, 91): Wna (rcu_bh_state.node[0].grplo, 0) rcutree.c:2068
+	(0, 92): Wna (rcu_bh_state.node[0].blkd_tasks.next, 0x0) rcutree.c:2069
+	(0, 93): Wna (rcu_bh_state.node[0].parent, 0) rcutree.c:2076
+	(0, 94): Wna (rcu_bh_state.node[0].blkd_tasks.prev, 0x8000000000000180) fake_defs.h:248
+	(0, 95): Wna (rcu_bh_state.node[0].gp_tasks, 0x8000000000000180) fake_defs.h:249
+	(0, 96): Rna (rcu_bh_state.levelcnt[0], 1) [INIT] rcutree.c:2055
+	(0, 97): Wna (rcu_bh_state.rda, 0x8000000000000470) rcutree.c:2081
+	(0, 98): Rna (rcu_bh_state.level[0], 0x8000000000000128) [INIT] rcutree.c:2082
+	(0, 99): Rna (rcu_bh_state.node[0].parent, 1) [(0, 88)] rcutree.c:2084
+	(0, 100): Rna (rcu_bh_state.rda, 0x8000000000000470) [(0, 97)] rcutree.c:2086
+	(0, 101): Wna (rcu_bh_data[0].mynode, 0x8000000000000128) rcutree.c:2086
+	(0, 102): Rna (rcu_bh_state.rda, 0x8000000000000470) [(0, 97)] rcutree.c:1858
+	(0, 103): Rna (local_irq_depth[0], 0) [(0, 75)] fake_sched.h:137
+	(0, 104): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(0, 105): CRacq (irq_lock[0].__private, 0) [(0, 76)] pthread.h:372
+	(0, 106): CWacq (irq_lock[0].__private, 1)
+	(0, 107): Far fake_sync.h:81
+	(0, 108): CRacq (rcu_bh_state.node[0].lock.__private, 0) [(0, 83)] pthread.h:372
+	(0, 109): CWacq (rcu_bh_state.node[0].lock.__private, 1)
+	(0, 110): Rna (rcu_bh_data[0].mynode, 0x8000000000000128) [(0, 101)] rcutree.c:1863
+	(0, 111): Rna (rcu_bh_state.node[0].grpnum, 0) [(0, 87)] rcutree.c:1863
+	(0, 112): Wna (rcu_bh_data[0].grpmask, 1) rcutree.c:1863
+	(0, 113): Wna (rcu_bh_data[0].nxtlist, 0x0) rcutree.c:1864
+	(0, 114): Wna (rcu_bh_data[0].nxttail[0], 0x80000000000004a0) rcutree.c:1866
+	(0, 115): Wna (rcu_bh_data[0].nxttail[1], 0x80000000000004a0) rcutree.c:1866
+	(0, 116): Wna (rcu_bh_data[0].nxttail[2], 0x80000000000004a0) rcutree.c:1866
+	(0, 117): Wna (rcu_bh_data[0].nxttail[3], 0x80000000000004a0) rcutree.c:1866
+	(0, 118): Wna (rcu_bh_data[0].qlen, 0) rcutree.c:1867
+	(0, 119): Wna (rcu_bh_data[0].dynticks, 0x8000000000000690) rcutree.c:1869
+	(0, 120): Wna (rcu_bh_data[0].cpu, 0) rcutree.c:1871
+	(0, 121): Wrel (rcu_bh_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 122): Rna (local_irq_depth[0], 1) [(0, 104)] fake_sched.h:145
+	(0, 123): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(0, 124): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(0, 125): Far fake_sync.h:91
+	(0, 126): Rna (rcu_bh_state.node[0].parent, 1) [(0, 88)] rcutree.c:2084
+	(0, 127): Rna (rcu_bh_state.rda, 0x8000000000000470) [(0, 97)] rcutree.c:2086
+	(0, 128): Wna (rcu_bh_data[1].mynode, 0x8000000000000128) rcutree.c:2086
+	(0, 129): Rna (rcu_bh_state.rda, 0x8000000000000470) [(0, 97)] rcutree.c:1858
+	(0, 130): Rna (local_irq_depth[0], 0) [(0, 123)] fake_sched.h:137
+	(0, 131): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(0, 132): CRacq (irq_lock[0].__private, 0) [(0, 124)] pthread.h:372
+	(0, 133): CWacq (irq_lock[0].__private, 1)
+	(0, 134): Far fake_sync.h:81
+	(0, 135): CRacq (rcu_bh_state.node[0].lock.__private, 0) [(0, 121)] pthread.h:372
+	(0, 136): CWacq (rcu_bh_state.node[0].lock.__private, 1)
+	(0, 137): Rna (rcu_bh_data[1].mynode, 0x8000000000000128) [(0, 128)] rcutree.c:1863
+	(0, 138): Rna (rcu_bh_state.node[0].grpnum, 0) [(0, 87)] rcutree.c:1863
+	(0, 139): Wna (rcu_bh_data[1].grpmask, 2) rcutree.c:1863
+	(0, 140): Wna (rcu_bh_data[1].nxtlist, 0x0) rcutree.c:1864
+	(0, 141): Wna (rcu_bh_data[1].nxttail[0], 0x80000000000005a8) rcutree.c:1866
+	(0, 142): Wna (rcu_bh_data[1].nxttail[1], 0x80000000000005a8) rcutree.c:1866
+	(0, 143): Wna (rcu_bh_data[1].nxttail[2], 0x80000000000005a8) rcutree.c:1866
+	(0, 144): Wna (rcu_bh_data[1].nxttail[3], 0x80000000000005a8) rcutree.c:1866
+	(0, 145): Wna (rcu_bh_data[1].qlen, 0) rcutree.c:1867
+	(0, 146): Wna (rcu_bh_data[1].dynticks, 0x800000000000069c) rcutree.c:1869
+	(0, 147): Wna (rcu_bh_data[1].cpu, 1) rcutree.c:1871
+	(0, 148): Wrel (rcu_bh_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 149): Rna (local_irq_depth[0], 1) [(0, 131)] fake_sched.h:145
+	(0, 150): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(0, 151): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(0, 152): Far fake_sync.h:91
+	(0, 153): Rna (rcu_state, 0x8000000000000000) [INIT] rcutree.c:1942
+	(0, 154): Rna (rcu_sched_state.rda, 0x8000000000000250) [(0, 22)] rcutree.c:1942
+	(0, 155): Rna (rcu_sched_data[0].mynode, 0x8000000000000000) [(0, 26)] rcutree.c:1943
+	(0, 156): Rna (rcu_sched_state.rda, 0x8000000000000250) [(0, 22)] rcutree.c:1886
+	(0, 157): Rna (local_irq_depth[0], 0) [(0, 150)] fake_sched.h:137
+	(0, 158): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(0, 159): CRacq (irq_lock[0].__private, 0) [(0, 151)] pthread.h:372
+	(0, 160): CWacq (irq_lock[0].__private, 1)
+	(0, 161): Far fake_sync.h:81
+	(0, 162): CRacq (rcu_sched_state.node[0].lock.__private, 0) [(0, 73)] pthread.h:372
+	(0, 163): CWacq (rcu_sched_state.node[0].lock.__private, 1)
+	(0, 164): Wna (rcu_sched_data[0].passed_quiesc, 0) rcutree.c:1891
+	(0, 165): Wna (rcu_sched_data[0].qs_pending, 1) rcutree.c:1892
+	(0, 166): Wna (rcu_sched_data[0].beenonline, 1) rcutree.c:1893
+	(0, 167): Wna (rcu_sched_data[0].preemptible, 0) rcutree.c:1894
+	(0, 168): Wna (rcu_sched_data[0].qlen_last_fqs_check, 0) rcutree.c:1895
+	(0, 169): Rna (rcu_sched_state.n_force_qs, 0) [INIT] rcutree.c:1896
+	(0, 170): Wna (rcu_sched_data[0].n_force_qs_snap, 0) rcutree.c:1896
+	(0, 171): Rna (blimit, 10) [INIT] rcutree.c:1897
+	(0, 172): Wna (rcu_sched_data[0].blimit, 10) rcutree.c:1897
+	(0, 173): Wrel (rcu_sched_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 174): Far fake_sync.h:121
+	(0, 175): Far fake_sync.h:112
+	(0, 176): CRacq (rcu_sched_state.fqslock.__private, 0) [INIT] pthread.h:372
+	(0, 177): CWacq (rcu_sched_state.fqslock.__private, 1)
+	(0, 178): Rna (rcu_sched_data[0].mynode, 0x8000000000000000) [(0, 26)] rcutree.c:1909
+	(0, 179): Rna (rcu_sched_data[0].grpmask, 1) [(0, 37)] rcutree.c:1910
+	(0, 180): Far fake_sync.h:112
+	(0, 181): CRacq (rcu_sched_state.node[0].lock.__private, 0) [(0, 173)] pthread.h:372
+	(0, 182): CWacq (rcu_sched_state.node[0].lock.__private, 1)
+	(0, 183): Rna (rcu_sched_state.node[0].grpmask, 0) [(0, 11)] rcutree.c:1914
+	(0, 184): Wna (rcu_sched_state.node[0].grpmask, 1) rcutree.c:1914
+	(0, 185): Rna (rcu_sched_state.node[0].grplo, 0) [(0, 16)] rcutree.c:1915
+	(0, 186): Rna (rcu_sched_data[0].mynode, 0x8000000000000000) [(0, 26)] rcutree.c:1916
+	(0, 187): Rna (rcu_sched_state.node[0].completed, 0) [INIT] rcutree.c:1917
+	(0, 188): Wna (rcu_sched_data[0].gpnum, 0) rcutree.c:1917
+	(0, 189): Rna (rcu_sched_state.node[0].completed, 0) [INIT] rcutree.c:1918
+	(0, 190): Wna (rcu_sched_data[0].completed, 0) rcutree.c:1918
+	(0, 191): Rna (rcu_sched_state.node[0].completed, 0) [INIT] rcutree.c:1919
+	(0, 192): Wna (rcu_sched_data[0].passed_quiesc_completed, -1) rcutree.c:1919
+	(0, 193): Wrel (rcu_sched_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 194): Far fake_sync.h:121
+	(0, 195): Rna (rcu_sched_state.node[0].blkd_tasks.next, 0x0) [(0, 17)] rcutree.c:1922
+	(0, 196): Wrel (rcu_sched_state.fqslock.__private, 0) pthread.h:380
+	(0, 197): Rna (local_irq_depth[0], 1) [(0, 158)] fake_sched.h:145
+	(0, 198): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(0, 199): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(0, 200): Far fake_sync.h:91
+	(0, 201): Rna (rcu_bh_state.rda, 0x8000000000000470) [(0, 97)] rcutree.c:1886
+	(0, 202): Rna (local_irq_depth[0], 0) [(0, 198)] fake_sched.h:137
+	(0, 203): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(0, 204): CRacq (irq_lock[0].__private, 0) [(0, 199)] pthread.h:372
+	(0, 205): CWacq (irq_lock[0].__private, 1)
+	(0, 206): Far fake_sync.h:81
+	(0, 207): CRacq (rcu_bh_state.node[0].lock.__private, 0) [(0, 148)] pthread.h:372
+	(0, 208): CWacq (rcu_bh_state.node[0].lock.__private, 1)
+	(0, 209): Wna (rcu_bh_data[0].passed_quiesc, 0) rcutree.c:1891
+	(0, 210): Wna (rcu_bh_data[0].qs_pending, 1) rcutree.c:1892
+	(0, 211): Wna (rcu_bh_data[0].beenonline, 1) rcutree.c:1893
+	(0, 212): Wna (rcu_bh_data[0].preemptible, 0) rcutree.c:1894
+	(0, 213): Wna (rcu_bh_data[0].qlen_last_fqs_check, 0) rcutree.c:1895
+	(0, 214): Rna (rcu_bh_state.n_force_qs, 0) [INIT] rcutree.c:1896
+	(0, 215): Wna (rcu_bh_data[0].n_force_qs_snap, 0) rcutree.c:1896
+	(0, 216): Rna (blimit, 10) [INIT] rcutree.c:1897
+	(0, 217): Wna (rcu_bh_data[0].blimit, 10) rcutree.c:1897
+	(0, 218): Wrel (rcu_bh_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 219): Far fake_sync.h:121
+	(0, 220): Far fake_sync.h:112
+	(0, 221): CRacq (rcu_bh_state.fqslock.__private, 0) [INIT] pthread.h:372
+	(0, 222): CWacq (rcu_bh_state.fqslock.__private, 1)
+	(0, 223): Rna (rcu_bh_data[0].mynode, 0x8000000000000128) [(0, 101)] rcutree.c:1909
+	(0, 224): Rna (rcu_bh_data[0].grpmask, 1) [(0, 112)] rcutree.c:1910
+	(0, 225): Far fake_sync.h:112
+	(0, 226): CRacq (rcu_bh_state.node[0].lock.__private, 0) [(0, 218)] pthread.h:372
+	(0, 227): CWacq (rcu_bh_state.node[0].lock.__private, 1)
+	(0, 228): Rna (rcu_bh_state.node[0].grpmask, 0) [(0, 86)] rcutree.c:1914
+	(0, 229): Wna (rcu_bh_state.node[0].grpmask, 1) rcutree.c:1914
+	(0, 230): Rna (rcu_bh_state.node[0].grplo, 0) [(0, 91)] rcutree.c:1915
+	(0, 231): Rna (rcu_bh_data[0].mynode, 0x8000000000000128) [(0, 101)] rcutree.c:1916
+	(0, 232): Rna (rcu_bh_state.node[0].completed, 0) [INIT] rcutree.c:1917
+	(0, 233): Wna (rcu_bh_data[0].gpnum, 0) rcutree.c:1917
+	(0, 234): Rna (rcu_bh_state.node[0].completed, 0) [INIT] rcutree.c:1918
+	(0, 235): Wna (rcu_bh_data[0].completed, 0) rcutree.c:1918
+	(0, 236): Rna (rcu_bh_state.node[0].completed, 0) [INIT] rcutree.c:1919
+	(0, 237): Wna (rcu_bh_data[0].passed_quiesc_completed, -1) rcutree.c:1919
+	(0, 238): Wrel (rcu_bh_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 239): Far fake_sync.h:121
+	(0, 240): Rna (rcu_bh_state.node[0].blkd_tasks.next, 0x0) [(0, 92)] rcutree.c:1922
+	(0, 241): Wrel (rcu_bh_state.fqslock.__private, 0) pthread.h:380
+	(0, 242): Rna (local_irq_depth[0], 1) [(0, 203)] fake_sched.h:145
+	(0, 243): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(0, 244): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(0, 245): Far fake_sync.h:91
+	(0, 246): Rna (rcu_state, 0x8000000000000000) [INIT] rcutree.c:1942
+	(0, 247): Rna (rcu_sched_state.rda, 0x8000000000000250) [(0, 22)] rcutree.c:1942
+	(0, 248): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:1943
+	(0, 249): Rna (rcu_sched_state.rda, 0x8000000000000250) [(0, 22)] rcutree.c:1886
+	(0, 250): Rna (local_irq_depth[0], 0) [(0, 243)] fake_sched.h:137
+	(0, 251): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(0, 252): CRacq (irq_lock[0].__private, 0) [(0, 244)] pthread.h:372
+	(0, 253): CWacq (irq_lock[0].__private, 1)
+	(0, 254): Far fake_sync.h:81
+	(0, 255): CRacq (rcu_sched_state.node[0].lock.__private, 0) [(0, 193)] pthread.h:372
+	(0, 256): CWacq (rcu_sched_state.node[0].lock.__private, 1)
+	(0, 257): Wna (rcu_sched_data[1].passed_quiesc, 0) rcutree.c:1891
+	(0, 258): Wna (rcu_sched_data[1].qs_pending, 1) rcutree.c:1892
+	(0, 259): Wna (rcu_sched_data[1].beenonline, 1) rcutree.c:1893
+	(0, 260): Wna (rcu_sched_data[1].preemptible, 0) rcutree.c:1894
+	(0, 261): Wna (rcu_sched_data[1].qlen_last_fqs_check, 0) rcutree.c:1895
+	(0, 262): Rna (rcu_sched_state.n_force_qs, 0) [INIT] rcutree.c:1896
+	(0, 263): Wna (rcu_sched_data[1].n_force_qs_snap, 0) rcutree.c:1896
+	(0, 264): Rna (blimit, 10) [INIT] rcutree.c:1897
+	(0, 265): Wna (rcu_sched_data[1].blimit, 10) rcutree.c:1897
+	(0, 266): Wrel (rcu_sched_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 267): Far fake_sync.h:121
+	(0, 268): Far fake_sync.h:112
+	(0, 269): CRacq (rcu_sched_state.fqslock.__private, 0) [(0, 196)] pthread.h:372
+	(0, 270): CWacq (rcu_sched_state.fqslock.__private, 1)
+	(0, 271): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:1909
+	(0, 272): Rna (rcu_sched_data[1].grpmask, 2) [(0, 64)] rcutree.c:1910
+	(0, 273): Far fake_sync.h:112
+	(0, 274): CRacq (rcu_sched_state.node[0].lock.__private, 0) [(0, 266)] pthread.h:372
+	(0, 275): CWacq (rcu_sched_state.node[0].lock.__private, 1)
+	(0, 276): Rna (rcu_sched_state.node[0].grpmask, 1) [(0, 184)] rcutree.c:1914
+	(0, 277): Wna (rcu_sched_state.node[0].grpmask, 3) rcutree.c:1914
+	(0, 278): Rna (rcu_sched_state.node[0].grplo, 0) [(0, 16)] rcutree.c:1915
+	(0, 279): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:1916
+	(0, 280): Rna (rcu_sched_state.node[0].completed, 0) [INIT] rcutree.c:1917
+	(0, 281): Wna (rcu_sched_data[1].gpnum, 0) rcutree.c:1917
+	(0, 282): Rna (rcu_sched_state.node[0].completed, 0) [INIT] rcutree.c:1918
+	(0, 283): Wna (rcu_sched_data[1].completed, 0) rcutree.c:1918
+	(0, 284): Rna (rcu_sched_state.node[0].completed, 0) [INIT] rcutree.c:1919
+	(0, 285): Wna (rcu_sched_data[1].passed_quiesc_completed, -1) rcutree.c:1919
+	(0, 286): Wrel (rcu_sched_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 287): Far fake_sync.h:121
+	(0, 288): Rna (rcu_sched_state.node[0].blkd_tasks.next, 0x0) [(0, 17)] rcutree.c:1922
+	(0, 289): Wrel (rcu_sched_state.fqslock.__private, 0) pthread.h:380
+	(0, 290): Rna (local_irq_depth[0], 1) [(0, 251)] fake_sched.h:145
+	(0, 291): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(0, 292): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(0, 293): Far fake_sync.h:91
+	(0, 294): Rna (rcu_bh_state.rda, 0x8000000000000470) [(0, 97)] rcutree.c:1886
+	(0, 295): Rna (local_irq_depth[0], 0) [(0, 291)] fake_sched.h:137
+	(0, 296): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(0, 297): CRacq (irq_lock[0].__private, 0) [(0, 292)] pthread.h:372
+	(0, 298): CWacq (irq_lock[0].__private, 1)
+	(0, 299): Far fake_sync.h:81
+	(0, 300): CRacq (rcu_bh_state.node[0].lock.__private, 0) [(0, 238)] pthread.h:372
+	(0, 301): CWacq (rcu_bh_state.node[0].lock.__private, 1)
+	(0, 302): Wna (rcu_bh_data[1].passed_quiesc, 0) rcutree.c:1891
+	(0, 303): Wna (rcu_bh_data[1].qs_pending, 1) rcutree.c:1892
+	(0, 304): Wna (rcu_bh_data[1].beenonline, 1) rcutree.c:1893
+	(0, 305): Wna (rcu_bh_data[1].preemptible, 0) rcutree.c:1894
+	(0, 306): Wna (rcu_bh_data[1].qlen_last_fqs_check, 0) rcutree.c:1895
+	(0, 307): Rna (rcu_bh_state.n_force_qs, 0) [INIT] rcutree.c:1896
+	(0, 308): Wna (rcu_bh_data[1].n_force_qs_snap, 0) rcutree.c:1896
+	(0, 309): Rna (blimit, 10) [INIT] rcutree.c:1897
+	(0, 310): Wna (rcu_bh_data[1].blimit, 10) rcutree.c:1897
+	(0, 311): Wrel (rcu_bh_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 312): Far fake_sync.h:121
+	(0, 313): Far fake_sync.h:112
+	(0, 314): CRacq (rcu_bh_state.fqslock.__private, 0) [(0, 241)] pthread.h:372
+	(0, 315): CWacq (rcu_bh_state.fqslock.__private, 1)
+	(0, 316): Rna (rcu_bh_data[1].mynode, 0x8000000000000128) [(0, 128)] rcutree.c:1909
+	(0, 317): Rna (rcu_bh_data[1].grpmask, 2) [(0, 139)] rcutree.c:1910
+	(0, 318): Far fake_sync.h:112
+	(0, 319): CRacq (rcu_bh_state.node[0].lock.__private, 0) [(0, 311)] pthread.h:372
+	(0, 320): CWacq (rcu_bh_state.node[0].lock.__private, 1)
+	(0, 321): Rna (rcu_bh_state.node[0].grpmask, 1) [(0, 229)] rcutree.c:1914
+	(0, 322): Wna (rcu_bh_state.node[0].grpmask, 3) rcutree.c:1914
+	(0, 323): Rna (rcu_bh_state.node[0].grplo, 0) [(0, 91)] rcutree.c:1915
+	(0, 324): Rna (rcu_bh_data[1].mynode, 0x8000000000000128) [(0, 128)] rcutree.c:1916
+	(0, 325): Rna (rcu_bh_state.node[0].completed, 0) [INIT] rcutree.c:1917
+	(0, 326): Wna (rcu_bh_data[1].gpnum, 0) rcutree.c:1917
+	(0, 327): Rna (rcu_bh_state.node[0].completed, 0) [INIT] rcutree.c:1918
+	(0, 328): Wna (rcu_bh_data[1].completed, 0) rcutree.c:1918
+	(0, 329): Rna (rcu_bh_state.node[0].completed, 0) [INIT] rcutree.c:1919
+	(0, 330): Wna (rcu_bh_data[1].passed_quiesc_completed, -1) rcutree.c:1919
+	(0, 331): Wrel (rcu_bh_state.node[0].lock.__private, 0) pthread.h:380
+	(0, 332): Far fake_sync.h:121
+	(0, 333): Rna (rcu_bh_state.node[0].blkd_tasks.next, 0x0) [(0, 92)] rcutree.c:1922
+	(0, 334): Wrel (rcu_bh_state.fqslock.__private, 0) pthread.h:380
+	(0, 335): Rna (local_irq_depth[0], 1) [(0, 296)] fake_sched.h:145
+	(0, 336): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(0, 337): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(0, 338): Far fake_sync.h:91
+	(0, 339): Rna (local_irq_depth[0], 0) [(0, 336)] fake_sched.h:137
+	(0, 340): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(0, 341): CRacq (irq_lock[0].__private, 0) [(0, 337)] pthread.h:372
+	(0, 342): CWacq (irq_lock[0].__private, 1)
+	(0, 343): Rna (rcu_dynticks[0].dynticks_nesting, 1) [INIT] rcutree.c:356
+	(0, 344): Wna (rcu_dynticks[0].dynticks_nesting, 0) rcutree.c:356
+	(0, 345): Far rcutree.c:361
+	(0, 346): URrlx (rcu_dynticks[0].dynticks.counter, 1) [INIT] rcutree.c:362
+	(0, 347): UWrlx (rcu_dynticks[0].dynticks.counter, 2)
+	(0, 348): Far rcutree.c:363
+	(0, 349): Rrlx (rcu_dynticks[0].dynticks.counter, 2) [(0, 347)] rcutree.c:364
+	(0, 350): Rrlx (rcu_dynticks[0].dynticks.counter, 2) [(0, 347)] rcutree.c:364
+	(0, 351): Rna (local_irq_depth[0], 1) [(0, 340)] fake_sched.h:145
+	(0, 352): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(0, 353): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(0, 354): Rna (local_irq_depth[0], 0) [(0, 352)] fake_sched.h:174
+	(0, 355): Rna (local_irq_depth[1], 0) [INIT] fake_sched.h:137
+	(0, 356): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 357): CRacq (irq_lock[1].__private, 0) [INIT] pthread.h:372
+	(0, 358): CWacq (irq_lock[1].__private, 1)
+	(0, 359): Rna (rcu_dynticks[1].dynticks_nesting, 1) [INIT] rcutree.c:356
+	(0, 360): Wna (rcu_dynticks[1].dynticks_nesting, 0) rcutree.c:356
+	(0, 361): Far rcutree.c:361
+	(0, 362): URrlx (rcu_dynticks[1].dynticks.counter, 1) [INIT] rcutree.c:362
+	(0, 363): UWrlx (rcu_dynticks[1].dynticks.counter, 2)
+	(0, 364): Far rcutree.c:363
+	(0, 365): Rrlx (rcu_dynticks[1].dynticks.counter, 2) [(0, 363)] rcutree.c:364
+	(0, 366): Rrlx (rcu_dynticks[1].dynticks.counter, 2) [(0, 363)] rcutree.c:364
+	(0, 367): Rna (local_irq_depth[1], 1) [(0, 356)] fake_sched.h:145
+	(0, 368): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 369): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 370): Rna (local_irq_depth[1], 0) [(0, 368)] fake_sched.h:174
+	(0, 371): THREAD_CREATE [thread 1] pthread.h:143
+	(0, 372): THREAD_CREATE [thread 2] pthread.h:143
+	(0, 373): Rna (cpu1, 1) [INIT] L.48
+	(0, 374): CRacq (cpu_lock[1].__private, 0) [INIT] pthread.h:372
+	(0, 375): CWacq (cpu_lock[1].__private, 1)
+	(0, 376): Rna (local_irq_depth[1], 0) [(0, 368)] fake_sched.h:137
+	(0, 377): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 378): CRacq (irq_lock[1].__private, 0) [(0, 369)] pthread.h:372
+	(0, 379): CWacq (irq_lock[1].__private, 1)
+	(0, 380): Rna (rcu_dynticks[1].dynticks_nesting, 0) [(0, 360)] rcutree.c:388
+	(0, 381): Wna (rcu_dynticks[1].dynticks_nesting, 1) rcutree.c:388
+	(0, 382): Far rcutree.c:392
+	(0, 383): URrlx (rcu_dynticks[1].dynticks.counter, 2) [(0, 363)] rcutree.c:393
+	(0, 384): UWrlx (rcu_dynticks[1].dynticks.counter, 3)
+	(0, 385): Far rcutree.c:395
+	(0, 386): Rrlx (rcu_dynticks[1].dynticks.counter, 3) [(0, 384)] rcutree.c:396
+	(0, 387): Rrlx (rcu_dynticks[1].dynticks.counter, 3) [(0, 384)] rcutree.c:396
+	(0, 388): Rna (local_irq_depth[1], 1) [(0, 377)] fake_sched.h:145
+	(0, 389): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 390): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 391): Far rcupdate.h:112
+	(0, 392): Rna (x, 0) [INIT] L.52
+	(0, 393): Wna (r_x, 0) L.52
+	(0, 394): Rna (local_irq_depth[1], 0) [(0, 389)] fake_sched.h:153
+	(0, 395): CRacq (irq_lock[1].__private, 0) [(0, 390)] pthread.h:372
+	(0, 396): CWacq (irq_lock[1].__private, 1)
+	(0, 397): Wna (local_irq_depth[1], 1) fake_sched.h:157
+	(0, 398): Rna (local_irq_depth[1], 1) [(0, 397)] fake_sched.h:137
+	(0, 399): Wna (local_irq_depth[1], 2) fake_sched.h:137
+	(0, 400): Rna (rcu_dynticks[1].dynticks_nesting, 1) [(0, 381)] rcutree.c:388
+	(0, 401): Wna (rcu_dynticks[1].dynticks_nesting, 2) rcutree.c:388
+	(0, 402): Rna (local_irq_depth[1], 2) [(0, 399)] fake_sched.h:145
+	(0, 403): Wna (local_irq_depth[1], 1) fake_sched.h:145
+	(0, 404): Rna (rcu_bh_data[1].gpnum, 0) [(0, 326)] rcutree.c:176
+	(0, 405): Wna (rcu_bh_data[1].passed_quiesc_completed, -1) rcutree.c:176
+	(0, 406): Far rcutree.c:177
+	(0, 407): Wna (rcu_bh_data[1].passed_quiesc, 1) rcutree.c:178
+	(0, 408): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:1689
+	(0, 409): Rna (rcu_sched_data[1].n_rp_qs_pending, 0) [INIT] rcutree.c:1691
+	(0, 410): Wna (rcu_sched_data[1].n_rp_qs_pending, 1) rcutree.c:1691
+	(0, 411): Rna (rcu_cpu_stall_suppress, 0) [INIT] rcutree.c:619
+	(0, 412): Rrlx (jiffies, 0) [INIT] rcutree.c:621
+	(0, 413): Rrlx (rcu_sched_state.jiffies_stall, 0) [INIT] rcutree.c:622
+	(0, 414): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:623
+	(0, 415): Rrlx (rcu_sched_state.node[0].qsmask, 0) [(0, 10)] rcutree.c:624
+	(0, 416): Rna (rcu_sched_data[1].grpmask, 2) [(0, 64)] rcutree.c:624
+	(0, 417): Rrlx (rcu_sched_state.completed, -300) [INIT] rcutree.c:152
+	(0, 418): Rrlx (rcu_sched_state.gpnum, -300) [INIT] rcutree.c:152
+	(0, 419): Rna (rcu_sched_data[1].qs_pending, 1) [(0, 258)] rcutree.c:1697
+	(0, 420): Rna (rcu_sched_data[1].passed_quiesc, 0) [(0, 257)] rcutree.c:1697
+	(0, 421): Rna (rcu_sched_data[1].n_rp_report_qs, 0) [INIT] rcutree.c:1704
+	(0, 422): Wna (rcu_sched_data[1].n_rp_report_qs, 1) rcutree.c:1704
+	(0, 423): Rna (rcu_sched_data[1].preemptible, 0) [(0, 260)] rcutree.c:1705
+	(0, 424): Rrlx (rcu_sched_state.jiffies_force_qs, 0) [INIT] rcutree.c:1706
+	(0, 425): Rna (jiffies, 0) [INIT] rcutree.c:1706
+	(0, 426): Rna (rcu_sched_data[1].nxttail[0], 0x8000000000000388) [(0, 66)] rcutree.c:280
+	(0, 427): Rna (rcu_sched_data[1].nxttail[0], 0x8000000000000388) [(0, 66)] rcutree.c:289
+	(0, 428): Rna (rcu_sched_data[1].nxtlist, 0x0) [(0, 65)] rcutree.c:289
+	(0, 429): Rrlx (rcu_sched_state.node[0].completed, 0) [INIT] rcutree.c:1727
+	(0, 430): Rna (rcu_sched_data[1].completed, 0) [(0, 283)] rcutree.c:1727
+	(0, 431): Rrlx (rcu_sched_state.node[0].gpnum, 0) [(0, 9)] rcutree.c:1733
+	(0, 432): Rna (rcu_sched_data[1].gpnum, 0) [(0, 281)] rcutree.c:1733
+	(0, 433): Rrlx (rcu_sched_state.completed, -300) [INIT] rcutree.c:152
+	(0, 434): Rrlx (rcu_sched_state.gpnum, -300) [INIT] rcutree.c:152
+	(0, 435): Rna (rcu_sched_data[1].cpu, 0) [INIT] rcutree.c:1746
+	(0, 436): Wna (rcu_sched_data[1].cpu, 1) rcutree.c:1746
+	(0, 437): Rna (rcu_bh_data[1].mynode, 0x8000000000000128) [(0, 128)] rcutree.c:1689
+	(0, 438): Rna (rcu_bh_data[1].n_rp_qs_pending, 0) [INIT] rcutree.c:1691
+	(0, 439): Wna (rcu_bh_data[1].n_rp_qs_pending, 1) rcutree.c:1691
+	(0, 440): Rna (rcu_cpu_stall_suppress, 0) [INIT] rcutree.c:619
+	(0, 441): Rrlx (jiffies, 0) [INIT] rcutree.c:621
+	(0, 442): Rrlx (rcu_bh_state.jiffies_stall, 0) [INIT] rcutree.c:622
+	(0, 443): Rna (rcu_bh_data[1].mynode, 0x8000000000000128) [(0, 128)] rcutree.c:623
+	(0, 444): Rrlx (rcu_bh_state.node[0].qsmask, 0) [(0, 85)] rcutree.c:624
+	(0, 445): Rna (rcu_bh_data[1].grpmask, 2) [(0, 139)] rcutree.c:624
+	(0, 446): Rrlx (rcu_bh_state.completed, -300) [INIT] rcutree.c:152
+	(0, 447): Rrlx (rcu_bh_state.gpnum, -300) [INIT] rcutree.c:152
+	(0, 448): Rna (rcu_bh_data[1].qs_pending, 1) [(0, 303)] rcutree.c:1697
+	(0, 449): Rna (rcu_bh_data[1].passed_quiesc, 1) [(0, 407)] rcutree.c:1697
+	(0, 450): Rna (rcu_bh_data[1].qs_pending, 1) [(0, 303)] rcutree.c:1709
+	(0, 451): Rna (rcu_bh_data[1].passed_quiesc, 1) [(0, 407)] rcutree.c:1709
+	(0, 452): Rna (rcu_bh_data[1].n_rp_cb_ready, 0) [INIT] rcutree.c:1710
+	(0, 453): Wna (rcu_bh_data[1].n_rp_cb_ready, 1) rcutree.c:1710
+	(0, 454): Wna (need_softirq[1], 1) rcutree.c:1526
+	(0, 455): Wna (local_irq_depth[1], 0) fake_sched.h:162
+	(0, 456): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 457): Rna (need_softirq[1], 1) [(0, 454)] fake_sched.h:192
+	(0, 458): Rna (rcu_sched_data[1].beenonline, 1) [(0, 259)] rcutree.c:1464
+	(0, 459): Rna (rcu_sched_data[1].beenonline, 1) [(0, 259)] rcutree.c:1464
+	(0, 460): Rrlx (rcu_sched_state.jiffies_force_qs, 0) [INIT] rcutree.c:1470
+	(0, 461): Rna (jiffies, 0) [INIT] rcutree.c:1470
+	(0, 462): Rna (local_irq_depth[1], 0) [(0, 455)] fake_sched.h:137
+	(0, 463): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 464): CRacq (irq_lock[1].__private, 0) [(0, 456)] pthread.h:372
+	(0, 465): CWacq (irq_lock[1].__private, 1)
+	(0, 466): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:787
+	(0, 467): Rna (rcu_sched_data[1].completed, 0) [(0, 283)] rcutree.c:788
+	(0, 468): Rrlx (rcu_sched_state.node[0].completed, 0) [INIT] rcutree.c:788
+	(0, 469): Rna (local_irq_depth[1], 1) [(0, 463)] fake_sched.h:145
+	(0, 470): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 471): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 472): Rna (local_irq_depth[1], 0) [(0, 470)] fake_sched.h:137
+	(0, 473): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 474): CRacq (irq_lock[1].__private, 0) [(0, 471)] pthread.h:372
+	(0, 475): CWacq (irq_lock[1].__private, 1)
+	(0, 476): Rna (rcu_sched_data[1].gpnum, 0) [(0, 281)] rcutree.c:727
+	(0, 477): Rna (rcu_sched_state.gpnum, -300) [INIT] rcutree.c:727
+	(0, 478): Rna (local_irq_depth[1], 1) [(0, 473)] fake_sched.h:137
+	(0, 479): Wna (local_irq_depth[1], 2) fake_sched.h:137
+	(0, 480): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:705
+	(0, 481): Rna (rcu_sched_data[1].gpnum, 0) [(0, 281)] rcutree.c:706
+	(0, 482): Rrlx (rcu_sched_state.node[0].gpnum, 0) [(0, 9)] rcutree.c:706
+	(0, 483): Rna (local_irq_depth[1], 2) [(0, 479)] fake_sched.h:145
+	(0, 484): Wna (local_irq_depth[1], 1) fake_sched.h:145
+	(0, 485): Rna (local_irq_depth[1], 1) [(0, 484)] fake_sched.h:145
+	(0, 486): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 487): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 488): Rna (rcu_sched_data[1].nxttail[0], 0x8000000000000388) [(0, 66)] rcutree.c:289
+	(0, 489): Rna (rcu_sched_data[1].nxtlist, 0x0) [(0, 65)] rcutree.c:289
+	(0, 490): Rna (rcu_sched_data[1].nxttail[0], 0x8000000000000388) [(0, 66)] rcutree.c:280
+	(0, 491): Rna (rcu_bh_data[1].beenonline, 1) [(0, 304)] rcutree.c:1464
+	(0, 492): Rna (rcu_bh_data[1].beenonline, 1) [(0, 304)] rcutree.c:1464
+	(0, 493): Rrlx (rcu_bh_state.jiffies_force_qs, 0) [INIT] rcutree.c:1470
+	(0, 494): Rna (jiffies, 0) [INIT] rcutree.c:1470
+	(0, 495): Rna (local_irq_depth[1], 0) [(0, 486)] fake_sched.h:137
+	(0, 496): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 497): CRacq (irq_lock[1].__private, 0) [(0, 487)] pthread.h:372
+	(0, 498): CWacq (irq_lock[1].__private, 1)
+	(0, 499): Rna (rcu_bh_data[1].mynode, 0x8000000000000128) [(0, 128)] rcutree.c:787
+	(0, 500): Rna (rcu_bh_data[1].completed, 0) [(0, 328)] rcutree.c:788
+	(0, 501): Rrlx (rcu_bh_state.node[0].completed, 0) [INIT] rcutree.c:788
+	(0, 502): Rna (local_irq_depth[1], 1) [(0, 496)] fake_sched.h:145
+	(0, 503): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 504): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 505): Rna (local_irq_depth[1], 0) [(0, 503)] fake_sched.h:137
+	(0, 506): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 507): CRacq (irq_lock[1].__private, 0) [(0, 504)] pthread.h:372
+	(0, 508): CWacq (irq_lock[1].__private, 1)
+	(0, 509): Rna (rcu_bh_data[1].gpnum, 0) [(0, 326)] rcutree.c:727
+	(0, 510): Rna (rcu_bh_state.gpnum, -300) [INIT] rcutree.c:727
+	(0, 511): Rna (local_irq_depth[1], 1) [(0, 506)] fake_sched.h:137
+	(0, 512): Wna (local_irq_depth[1], 2) fake_sched.h:137
+	(0, 513): Rna (rcu_bh_data[1].mynode, 0x8000000000000128) [(0, 128)] rcutree.c:705
+	(0, 514): Rna (rcu_bh_data[1].gpnum, 0) [(0, 326)] rcutree.c:706
+	(0, 515): Rrlx (rcu_bh_state.node[0].gpnum, 0) [(0, 84)] rcutree.c:706
+	(0, 516): Rna (local_irq_depth[1], 2) [(0, 512)] fake_sched.h:145
+	(0, 517): Wna (local_irq_depth[1], 1) fake_sched.h:145
+	(0, 518): Rna (local_irq_depth[1], 1) [(0, 517)] fake_sched.h:145
+	(0, 519): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 520): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 521): Rna (rcu_bh_data[1].nxttail[0], 0x80000000000005a8) [(0, 141)] rcutree.c:289
+	(0, 522): Rna (rcu_bh_data[1].nxtlist, 0x0) [(0, 140)] rcutree.c:289
+	(0, 523): Rna (rcu_bh_data[1].nxttail[0], 0x80000000000005a8) [(0, 141)] rcutree.c:280
+	(0, 524): Wna (need_softirq[1], 0) fake_sched.h:194
+	(0, 525): Rna (local_irq_depth[1], 0) [(0, 519)] fake_sched.h:137
+	(0, 526): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 527): CRacq (irq_lock[1].__private, 0) [(0, 520)] pthread.h:372
+	(0, 528): CWacq (irq_lock[1].__private, 1)
+	(0, 529): Rna (rcu_dynticks[1].dynticks_nesting, 2) [(0, 401)] rcutree.c:356
+	(0, 530): Wna (rcu_dynticks[1].dynticks_nesting, 1) rcutree.c:356
+	(0, 531): Rna (local_irq_depth[1], 1) [(0, 526)] fake_sched.h:145
+	(0, 532): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 533): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 534): Rna (y, 0) [INIT] L.62
+	(0, 535): Wna (r_y, 0) L.62
+	(0, 536): Far rcupdate.h:117
+	(0, 537): Rna (rcu_sched_data[1].gpnum, 0) [(0, 281)] rcutree.c:167
+	(0, 538): Wna (rcu_sched_data[1].passed_quiesc_completed, -1) rcutree.c:167
+	(0, 539): Far rcutree.c:168
+	(0, 540): Wna (rcu_sched_data[1].passed_quiesc, 1) rcutree.c:169
+	(0, 541): Rna (local_irq_depth[1], 0) [(0, 532)] fake_sched.h:137
+	(0, 542): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 543): CRacq (irq_lock[1].__private, 0) [(0, 533)] pthread.h:372
+	(0, 544): CWacq (irq_lock[1].__private, 1)
+	(0, 545): Rna (rcu_dynticks[1].dynticks_nesting, 1) [(0, 530)] rcutree.c:356
+	(0, 546): Wna (rcu_dynticks[1].dynticks_nesting, 0) rcutree.c:356
+	(0, 547): Far rcutree.c:361
+	(0, 548): URrlx (rcu_dynticks[1].dynticks.counter, 3) [(0, 384)] rcutree.c:362
+	(0, 549): UWrlx (rcu_dynticks[1].dynticks.counter, 4)
+	(0, 550): Far rcutree.c:363
+	(0, 551): Rrlx (rcu_dynticks[1].dynticks.counter, 4) [(0, 549)] rcutree.c:364
+	(0, 552): Rrlx (rcu_dynticks[1].dynticks.counter, 4) [(0, 549)] rcutree.c:364
+	(0, 553): Rna (local_irq_depth[1], 1) [(0, 542)] fake_sched.h:145
+	(0, 554): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 555): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 556): Rna (local_irq_depth[1], 0) [(0, 554)] fake_sched.h:174
+	(0, 557): Wrel (cpu_lock[1].__private, 0) pthread.h:380
+	(0, 558): CRacq (cpu_lock[1].__private, 0) [(0, 557)] pthread.h:372
+	(0, 559): CWacq (cpu_lock[1].__private, 1)
+	(0, 560): Rna (local_irq_depth[1], 0) [(0, 554)] fake_sched.h:137
+	(0, 561): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 562): CRacq (irq_lock[1].__private, 0) [(0, 555)] pthread.h:372
+	(0, 563): CWacq (irq_lock[1].__private, 1)
+	(0, 564): Rna (rcu_dynticks[1].dynticks_nesting, 0) [(0, 546)] rcutree.c:388
+	(0, 565): Wna (rcu_dynticks[1].dynticks_nesting, 1) rcutree.c:388
+	(0, 566): Far rcutree.c:392
+	(0, 567): URrlx (rcu_dynticks[1].dynticks.counter, 4) [(0, 549)] rcutree.c:393
+	(0, 568): UWrlx (rcu_dynticks[1].dynticks.counter, 5)
+	(0, 569): Far rcutree.c:395
+	(0, 570): Rrlx (rcu_dynticks[1].dynticks.counter, 5) [(0, 568)] rcutree.c:396
+	(0, 571): Rrlx (rcu_dynticks[1].dynticks.counter, 5) [(0, 568)] rcutree.c:396
+	(0, 572): Rna (local_irq_depth[1], 1) [(0, 561)] fake_sched.h:145
+	(0, 573): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 574): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 575): Rna (local_irq_depth[1], 0) [(0, 573)] fake_sched.h:153
+	(0, 576): CRacq (irq_lock[1].__private, 0) [(0, 574)] pthread.h:372
+	(0, 577): CWacq (irq_lock[1].__private, 1)
+	(0, 578): Wna (local_irq_depth[1], 1) fake_sched.h:157
+	(0, 579): Rna (local_irq_depth[1], 1) [(0, 578)] fake_sched.h:137
+	(0, 580): Wna (local_irq_depth[1], 2) fake_sched.h:137
+	(0, 581): Rna (rcu_dynticks[1].dynticks_nesting, 1) [(0, 565)] rcutree.c:388
+	(0, 582): Wna (rcu_dynticks[1].dynticks_nesting, 2) rcutree.c:388
+	(0, 583): Rna (local_irq_depth[1], 2) [(0, 580)] fake_sched.h:145
+	(0, 584): Wna (local_irq_depth[1], 1) fake_sched.h:145
+	(0, 585): Rna (rcu_bh_data[1].gpnum, 0) [(0, 326)] rcutree.c:176
+	(0, 586): Wna (rcu_bh_data[1].passed_quiesc_completed, -1) rcutree.c:176
+	(0, 587): Far rcutree.c:177
+	(0, 588): Wna (rcu_bh_data[1].passed_quiesc, 1) rcutree.c:178
+	(0, 589): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:1689
+	(0, 590): Rna (rcu_sched_data[1].n_rp_qs_pending, 1) [(0, 410)] rcutree.c:1691
+	(0, 591): Wna (rcu_sched_data[1].n_rp_qs_pending, 2) rcutree.c:1691
+	(0, 592): Rna (rcu_cpu_stall_suppress, 0) [INIT] rcutree.c:619
+	(0, 593): Rrlx (jiffies, 0) [INIT] rcutree.c:621
+	(0, 594): Rrlx (rcu_sched_state.jiffies_stall, 0) [INIT] rcutree.c:622
+	(0, 595): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:623
+	(0, 596): Rrlx (rcu_sched_state.node[0].qsmask, 0) [(0, 10)] rcutree.c:624
+	(0, 597): Rna (rcu_sched_data[1].grpmask, 2) [(0, 64)] rcutree.c:624
+	(0, 598): Rrlx (rcu_sched_state.completed, -300) [INIT] rcutree.c:152
+	(0, 599): Rrlx (rcu_sched_state.gpnum, -300) [INIT] rcutree.c:152
+	(0, 600): Rna (rcu_sched_data[1].qs_pending, 1) [(0, 258)] rcutree.c:1697
+	(0, 601): Rna (rcu_sched_data[1].passed_quiesc, 1) [(0, 540)] rcutree.c:1697
+	(0, 602): Rna (rcu_sched_data[1].qs_pending, 1) [(0, 258)] rcutree.c:1709
+	(0, 603): Rna (rcu_sched_data[1].passed_quiesc, 1) [(0, 540)] rcutree.c:1709
+	(0, 604): Rna (rcu_sched_data[1].n_rp_cb_ready, 0) [INIT] rcutree.c:1710
+	(0, 605): Wna (rcu_sched_data[1].n_rp_cb_ready, 1) rcutree.c:1710
+	(0, 606): Wna (need_softirq[1], 1) rcutree.c:1526
+	(0, 607): Wna (local_irq_depth[1], 0) fake_sched.h:162
+	(0, 608): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 609): Rna (need_softirq[1], 1) [(0, 606)] fake_sched.h:192
+	(0, 610): Rna (rcu_sched_data[1].beenonline, 1) [(0, 259)] rcutree.c:1464
+	(0, 611): Rna (rcu_sched_data[1].beenonline, 1) [(0, 259)] rcutree.c:1464
+	(0, 612): Rrlx (rcu_sched_state.jiffies_force_qs, 0) [INIT] rcutree.c:1470
+	(0, 613): Rna (jiffies, 0) [INIT] rcutree.c:1470
+	(0, 614): Rna (local_irq_depth[1], 0) [(0, 607)] fake_sched.h:137
+	(0, 615): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 616): CRacq (irq_lock[1].__private, 0) [(0, 608)] pthread.h:372
+	(0, 617): CWacq (irq_lock[1].__private, 1)
+	(0, 618): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:787
+	(0, 619): Rna (rcu_sched_data[1].completed, 0) [(0, 283)] rcutree.c:788
+	(0, 620): Rrlx (rcu_sched_state.node[0].completed, 0) [INIT] rcutree.c:788
+	(0, 621): Rna (local_irq_depth[1], 1) [(0, 615)] fake_sched.h:145
+	(0, 622): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 623): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 624): Rna (local_irq_depth[1], 0) [(0, 622)] fake_sched.h:137
+	(0, 625): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 626): CRacq (irq_lock[1].__private, 0) [(0, 623)] pthread.h:372
+	(0, 627): CWacq (irq_lock[1].__private, 1)
+	(0, 628): Rna (rcu_sched_data[1].gpnum, 0) [(0, 281)] rcutree.c:727
+	(0, 629): Rna (rcu_sched_state.gpnum, -300) [INIT] rcutree.c:727
+	(0, 630): Rna (local_irq_depth[1], 1) [(0, 625)] fake_sched.h:137
+	(0, 631): Wna (local_irq_depth[1], 2) fake_sched.h:137
+	(0, 632): Rna (rcu_sched_data[1].mynode, 0x8000000000000000) [(0, 53)] rcutree.c:705
+	(0, 633): Rna (rcu_sched_data[1].gpnum, 0) [(0, 281)] rcutree.c:706
+	(0, 634): Rrlx (rcu_sched_state.node[0].gpnum, 0) [(0, 9)] rcutree.c:706
+	(0, 635): Rna (local_irq_depth[1], 2) [(0, 631)] fake_sched.h:145
+	(0, 636): Wna (local_irq_depth[1], 1) fake_sched.h:145
+	(0, 637): Rna (local_irq_depth[1], 1) [(0, 636)] fake_sched.h:145
+	(0, 638): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 639): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 640): Rna (rcu_sched_data[1].nxttail[0], 0x8000000000000388) [(0, 66)] rcutree.c:289
+	(0, 641): Rna (rcu_sched_data[1].nxtlist, 0x0) [(0, 65)] rcutree.c:289
+	(0, 642): Rna (rcu_sched_data[1].nxttail[0], 0x8000000000000388) [(0, 66)] rcutree.c:280
+	(0, 643): Rna (rcu_bh_data[1].beenonline, 1) [(0, 304)] rcutree.c:1464
+	(0, 644): Rna (rcu_bh_data[1].beenonline, 1) [(0, 304)] rcutree.c:1464
+	(0, 645): Rrlx (rcu_bh_state.jiffies_force_qs, 0) [INIT] rcutree.c:1470
+	(0, 646): Rna (jiffies, 0) [INIT] rcutree.c:1470
+	(0, 647): Rna (local_irq_depth[1], 0) [(0, 638)] fake_sched.h:137
+	(0, 648): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 649): CRacq (irq_lock[1].__private, 0) [(0, 639)] pthread.h:372
+	(0, 650): CWacq (irq_lock[1].__private, 1)
+	(0, 651): Rna (rcu_bh_data[1].mynode, 0x8000000000000128) [(0, 128)] rcutree.c:787
+	(0, 652): Rna (rcu_bh_data[1].completed, 0) [(0, 328)] rcutree.c:788
+	(0, 653): Rrlx (rcu_bh_state.node[0].completed, 0) [INIT] rcutree.c:788
+	(0, 654): Rna (local_irq_depth[1], 1) [(0, 648)] fake_sched.h:145
+	(0, 655): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 656): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 657): Rna (local_irq_depth[1], 0) [(0, 655)] fake_sched.h:137
+	(0, 658): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 659): CRacq (irq_lock[1].__private, 0) [(0, 656)] pthread.h:372
+	(0, 660): CWacq (irq_lock[1].__private, 1)
+	(0, 661): Rna (rcu_bh_data[1].gpnum, 0) [(0, 326)] rcutree.c:727
+	(0, 662): Rna (rcu_bh_state.gpnum, -300) [INIT] rcutree.c:727
+	(0, 663): Rna (local_irq_depth[1], 1) [(0, 658)] fake_sched.h:137
+	(0, 664): Wna (local_irq_depth[1], 2) fake_sched.h:137
+	(0, 665): Rna (rcu_bh_data[1].mynode, 0x8000000000000128) [(0, 128)] rcutree.c:705
+	(0, 666): Rna (rcu_bh_data[1].gpnum, 0) [(0, 326)] rcutree.c:706
+	(0, 667): Rrlx (rcu_bh_state.node[0].gpnum, 0) [(0, 84)] rcutree.c:706
+	(0, 668): Rna (local_irq_depth[1], 2) [(0, 664)] fake_sched.h:145
+	(0, 669): Wna (local_irq_depth[1], 1) fake_sched.h:145
+	(0, 670): Rna (local_irq_depth[1], 1) [(0, 669)] fake_sched.h:145
+	(0, 671): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 672): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 673): Rna (rcu_bh_data[1].nxttail[0], 0x80000000000005a8) [(0, 141)] rcutree.c:289
+	(0, 674): Rna (rcu_bh_data[1].nxtlist, 0x0) [(0, 140)] rcutree.c:289
+	(0, 675): Rna (rcu_bh_data[1].nxttail[0], 0x80000000000005a8) [(0, 141)] rcutree.c:280
+	(0, 676): Wna (need_softirq[1], 0) fake_sched.h:194
+	(0, 677): Rna (local_irq_depth[1], 0) [(0, 671)] fake_sched.h:137
+	(0, 678): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 679): CRacq (irq_lock[1].__private, 0) [(0, 672)] pthread.h:372
+	(0, 680): CWacq (irq_lock[1].__private, 1)
+	(0, 681): Rna (rcu_dynticks[1].dynticks_nesting, 2) [(0, 582)] rcutree.c:356
+	(0, 682): Wna (rcu_dynticks[1].dynticks_nesting, 1) rcutree.c:356
+	(0, 683): Rna (local_irq_depth[1], 1) [(0, 678)] fake_sched.h:145
+	(0, 684): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 685): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 686): Rna (local_irq_depth[1], 0) [(0, 684)] fake_sched.h:137
+	(0, 687): Wna (local_irq_depth[1], 1) fake_sched.h:137
+	(0, 688): CRacq (irq_lock[1].__private, 0) [(0, 685)] pthread.h:372
+	(0, 689): CWacq (irq_lock[1].__private, 1)
+	(0, 690): Rna (rcu_dynticks[1].dynticks_nesting, 1) [(0, 682)] rcutree.c:356
+	(0, 691): Wna (rcu_dynticks[1].dynticks_nesting, 0) rcutree.c:356
+	(0, 692): Far rcutree.c:361
+	(0, 693): URrlx (rcu_dynticks[1].dynticks.counter, 5) [(0, 568)] rcutree.c:362
+	(0, 694): UWrlx (rcu_dynticks[1].dynticks.counter, 6)
+	(0, 695): Far rcutree.c:363
+	(0, 696): Rrlx (rcu_dynticks[1].dynticks.counter, 6) [(0, 694)] rcutree.c:364
+	(0, 697): Rrlx (rcu_dynticks[1].dynticks.counter, 6) [(0, 694)] rcutree.c:364
+	(0, 698): Rna (local_irq_depth[1], 1) [(0, 687)] fake_sched.h:145
+	(0, 699): Wna (local_irq_depth[1], 0) fake_sched.h:145
+	(0, 700): Wrel (irq_lock[1].__private, 0) pthread.h:380
+	(0, 701): Rna (local_irq_depth[1], 0) [(0, 699)] fake_sched.h:174
+	(0, 702): Wrel (cpu_lock[1].__private, 0) pthread.h:380
+	(0, 703): BLOCK[join]
+<0, 1> thread_update:
+	(1, 1): Rna (cpu0, 0) [INIT] L.75
+	(1, 2): CRacq (cpu_lock[0].__private, 0) [INIT] pthread.h:372
+	(1, 3): CWacq (cpu_lock[0].__private, 1)
+	(1, 4): Rna (local_irq_depth[0], 0) [(0, 352)] fake_sched.h:137
+	(1, 5): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(1, 6): CRacq (irq_lock[0].__private, 0) [(0, 353)] pthread.h:372
+	(1, 7): CWacq (irq_lock[0].__private, 1)
+	(1, 8): Rna (rcu_dynticks[0].dynticks_nesting, 0) [(0, 344)] rcutree.c:388
+	(1, 9): Wna (rcu_dynticks[0].dynticks_nesting, 1) rcutree.c:388
+	(1, 10): Far rcutree.c:392
+	(1, 11): URrlx (rcu_dynticks[0].dynticks.counter, 2) [(0, 347)] rcutree.c:393
+	(1, 12): UWrlx (rcu_dynticks[0].dynticks.counter, 3)
+	(1, 13): Far rcutree.c:395
+	(1, 14): Rrlx (rcu_dynticks[0].dynticks.counter, 3) [(1, 12)] rcutree.c:396
+	(1, 15): Rrlx (rcu_dynticks[0].dynticks.counter, 3) [(1, 12)] rcutree.c:396
+	(1, 16): Rna (local_irq_depth[0], 1) [(1, 5)] fake_sched.h:145
+	(1, 17): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(1, 18): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(1, 19): Wna (x, 1) L.78
+<0, 2> thread_helper:
+Coherence:
+need_softirq[1]: [ (0, 454): Wna (GU#2040, 1) (0, 524): Wna (GU#2040, 0) (0, 606): Wna (GU#2040, 1) (0, 676): Wna (GU#2040, 0) ]
+rcu_sched_data[1].n_rp_qs_pending: [ (0, 410): Wna (GU#1040, 1) (0, 591): Wna (GU#1040, 2) ]
+cpu_lock[1].__private: [ (0, 375): CWacq (GU#1996, 1) (0, 557): Wrel (GU#1996, 0) (0, 559): CWacq (GU#1996, 1) (0, 702): Wrel (GU#1996, 0) ]
+irq_lock[1].__private: [ (0, 358): CWacq (GU#2008, 1) (0, 369): Wrel (GU#2008, 0) (0, 379): CWacq (GU#2008, 1) (0, 390): Wrel (GU#2008, 0) (0, 396): CWacq (GU#2008, 1) (0, 456): Wrel (GU#2008, 0) (0, 465): CWacq (GU#2008, 1) (0, 471): Wrel (GU#2008, 0) (0, 475): CWacq (GU#2008, 1) (0, 487): Wrel (GU#2008, 0) (0, 498): CWacq (GU#2008, 1) (0, 504): Wrel (GU#2008, 0) (0, 508): CWacq (GU#2008, 1) (0, 520): Wrel (GU#2008, 0) (0, 528): CWacq (GU#2008, 1) (0, 533): Wrel (GU#2008, 0) (0, 544): CWacq (GU#2008, 1) (0, 555): Wrel (GU#2008, 0) (0, 563): CWacq (GU#2008, 1) (0, 574): Wrel (GU#2008, 0) (0, 577): CWacq (GU#2008, 1) (0, 608): Wrel (GU#2008, 0) (0, 617): CWacq (GU#2008, 1) (0, 623): Wrel (GU#2008, 0) (0, 627): CWacq (GU#2008, 1) (0, 639): Wrel (GU#2008, 0) (0, 650): CWacq (GU#2008, 1) (0, 656): Wrel (GU#2008, 0) (0, 660): CWacq (GU#2008, 1) (0, 672): Wrel (GU#2008, 0) (0, 680): CWacq (GU#2008, 1) (0, 685): Wrel (GU#2008, 0) (0, 689): CWacq (GU#2008, 1) (0, 700): Wrel (GU#2008, 0) ]
+rcu_sched_data[1].passed_quiesc_completed: [ (0, 285): Wna (GU#872, -1) (0, 538): Wna (GU#872, -1) ]
+rcu_bh_state.node[0].grpmask: [ (0, 86): Wna (GU#344, 0) (0, 229): Wna (GU#344, 1) (0, 322): Wna (GU#344, 3) ]
+rcu_bh_state.node[0].lock.__private: [ (0, 83): Wna (GU#296, 0) (0, 109): CWacq (GU#296, 1) (0, 121): Wrel (GU#296, 0) (0, 136): CWacq (GU#296, 1) (0, 148): Wrel (GU#296, 0) (0, 208): CWacq (GU#296, 1) (0, 218): Wrel (GU#296, 0) (0, 227): CWacq (GU#296, 1) (0, 238): Wrel (GU#296, 0) (0, 301): CWacq (GU#296, 1) (0, 311): Wrel (GU#296, 0) (0, 320): CWacq (GU#296, 1) (0, 331): Wrel (GU#296, 0) ]
+local_irq_depth[0]: [ (0, 29): Wna (GU#2028, 1) (0, 48): Wna (GU#2028, 0) (0, 56): Wna (GU#2028, 1) (0, 75): Wna (GU#2028, 0) (0, 104): Wna (GU#2028, 1) (0, 123): Wna (GU#2028, 0) (0, 131): Wna (GU#2028, 1) (0, 150): Wna (GU#2028, 0) (0, 158): Wna (GU#2028, 1) (0, 198): Wna (GU#2028, 0) (0, 203): Wna (GU#2028, 1) (0, 243): Wna (GU#2028, 0) (0, 251): Wna (GU#2028, 1) (0, 291): Wna (GU#2028, 0) (0, 296): Wna (GU#2028, 1) (0, 336): Wna (GU#2028, 0) (0, 340): Wna (GU#2028, 1) (0, 352): Wna (GU#2028, 0) (1, 5): Wna (GU#2028, 1) (1, 17): Wna (GU#2028, 0) ]
+rcu_sched_state.node[0].grpmask: [ (0, 11): Wna (GU#48, 0) (0, 184): Wna (GU#48, 1) (0, 277): Wna (GU#48, 3) ]
+rcu_dynticks[1].dynticks.counter: [ (0, 363): UWrlx (GU#1700, 2) (0, 384): UWrlx (GU#1700, 3) (0, 549): UWrlx (GU#1700, 4) (0, 568): UWrlx (GU#1700, 5) (0, 694): UWrlx (GU#1700, 6) ]
+rcu_dynticks[0].dynticks.counter: [ (0, 347): UWrlx (GU#1688, 2) (1, 12): UWrlx (GU#1688, 3) ]
+rcu_sched_state.node[0].lock.__private: [ (0, 8): Wna (GU#0, 0) (0, 34): CWacq (GU#0, 1) (0, 46): Wrel (GU#0, 0) (0, 61): CWacq (GU#0, 1) (0, 73): Wrel (GU#0, 0) (0, 163): CWacq (GU#0, 1) (0, 173): Wrel (GU#0, 0) (0, 182): CWacq (GU#0, 1) (0, 193): Wrel (GU#0, 0) (0, 256): CWacq (GU#0, 1) (0, 266): Wrel (GU#0, 0) (0, 275): CWacq (GU#0, 1) (0, 286): Wrel (GU#0, 0) ]
+local_irq_depth[1]: [ (0, 356): Wna (GU#2032, 1) (0, 368): Wna (GU#2032, 0) (0, 377): Wna (GU#2032, 1) (0, 389): Wna (GU#2032, 0) (0, 397): Wna (GU#2032, 1) (0, 399): Wna (GU#2032, 2) (0, 403): Wna (GU#2032, 1) (0, 455): Wna (GU#2032, 0) (0, 463): Wna (GU#2032, 1) (0, 470): Wna (GU#2032, 0) (0, 473): Wna (GU#2032, 1) (0, 479): Wna (GU#2032, 2) (0, 484): Wna (GU#2032, 1) (0, 486): Wna (GU#2032, 0) (0, 496): Wna (GU#2032, 1) (0, 503): Wna (GU#2032, 0) (0, 506): Wna (GU#2032, 1) (0, 512): Wna (GU#2032, 2) (0, 517): Wna (GU#2032, 1) (0, 519): Wna (GU#2032, 0) (0, 526): Wna (GU#2032, 1) (0, 532): Wna (GU#2032, 0) (0, 542): Wna (GU#2032, 1) (0, 554): Wna (GU#2032, 0) (0, 561): Wna (GU#2032, 1) (0, 573): Wna (GU#2032, 0) (0, 578): Wna (GU#2032, 1) (0, 580): Wna (GU#2032, 2) (0, 584): Wna (GU#2032, 1) (0, 607): Wna (GU#2032, 0) (0, 615): Wna (GU#2032, 1) (0, 622): Wna (GU#2032, 0) (0, 625): Wna (GU#2032, 1) (0, 631): Wna (GU#2032, 2) (0, 636): Wna (GU#2032, 1) (0, 638): Wna (GU#2032, 0) (0, 648): Wna (GU#2032, 1) (0, 655): Wna (GU#2032, 0) (0, 658): Wna (GU#2032, 1) (0, 664): Wna (GU#2032, 2) (0, 669): Wna (GU#2032, 1) (0, 671): Wna (GU#2032, 0) (0, 678): Wna (GU#2032, 1) (0, 684): Wna (GU#2032, 0) (0, 687): Wna (GU#2032, 1) (0, 699): Wna (GU#2032, 0) ]
+rcu_sched_state.fqslock.__private: [ (0, 177): CWacq (GU#200, 1) (0, 196): Wrel (GU#200, 0) (0, 270): CWacq (GU#200, 1) (0, 289): Wrel (GU#200, 0) ]
+irq_lock[0].__private: [ (0, 31): CWacq (GU#2004, 1) (0, 49): Wrel (GU#2004, 0) (0, 58): CWacq (GU#2004, 1) (0, 76): Wrel (GU#2004, 0) (0, 106): CWacq (GU#2004, 1) (0, 124): Wrel (GU#2004, 0) (0, 133): CWacq (GU#2004, 1) (0, 151): Wrel (GU#2004, 0) (0, 160): CWacq (GU#2004, 1) (0, 199): Wrel (GU#2004, 0) (0, 205): CWacq (GU#2004, 1) (0, 244): Wrel (GU#2004, 0) (0, 253): CWacq (GU#2004, 1) (0, 292): Wrel (GU#2004, 0) (0, 298): CWacq (GU#2004, 1) (0, 337): Wrel (GU#2004, 0) (0, 342): CWacq (GU#2004, 1) (0, 353): Wrel (GU#2004, 0) (1, 7): CWacq (GU#2004, 1) (1, 18): Wrel (GU#2004, 0) ]
+rcu_bh_state.fqslock.__private: [ (0, 222): CWacq (GU#496, 1) (0, 241): Wrel (GU#496, 0) (0, 315): CWacq (GU#496, 1) (0, 334): Wrel (GU#496, 0) ]
+rcu_dynticks[1].dynticks_nesting: [ (0, 360): Wna (GU#1692, 0) (0, 381): Wna (GU#1692, 1) (0, 401): Wna (GU#1692, 2) (0, 530): Wna (GU#1692, 1) (0, 546): Wna (GU#1692, 0) (0, 565): Wna (GU#1692, 1) (0, 582): Wna (GU#1692, 2) (0, 682): Wna (GU#1692, 1) (0, 691): Wna (GU#1692, 0) ]
+rcu_dynticks[0].dynticks_nesting: [ (0, 344): Wna (GU#1680, 0) (1, 9): Wna (GU#1680, 1) ]
+rcu_bh_data[1].passed_quiesc_completed: [ (0, 330): Wna (GU#1416, -1) (0, 405): Wna (GU#1416, -1) (0, 586): Wna (GU#1416, -1) ]
+rcu_sched_data[1].passed_quiesc: [ (0, 257): Wna (GU#880, 0) (0, 540): Wna (GU#880, 1) ]
+rcu_bh_data[1].passed_quiesc: [ (0, 302): Wna (GU#1424, 0) (0, 407): Wna (GU#1424, 1) (0, 588): Wna (GU#1424, 1) ]
+
+*** Verification unsuccessful.
+Number of complete executions explored: 0
+Number of blocked executions seen: 1
+Total wall-clock time: 0.39s
