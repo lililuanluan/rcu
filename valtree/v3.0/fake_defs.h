@@ -601,16 +601,20 @@ int noassert;
  * Note that these operations are supported under SC, TSO and PSO in Nidhugg,
  * but only for the model __ATOMIC_SEQ_CST, even if otherwise specified.
  */
-#define atomic_add(i, v) __atomic_add_fetch(&(v)->counter, i, __ATOMIC_RELAXED)
-#define atomic_add_return(i, v) atomic_add(i, v)
-#define atomic_sub(i, v) __atomic_sub_fetch(&(v)->counter, i, __ATOMIC_RELAXED)
-#define atomic_inc(v) atomic_add(1, v)
-#define atomic_inc_return(v) atomic_inc(v)
-#define atomic_dec(v) atomic_sub(1, v)
-#define atomic_dec_and_test(v) !atomic_dec(v)
-#define atomic_set(v, i) (v)->counter = i
-#define atomic_read(v) ACCESS_ONCE((v)->counter)
-#define atomic_cmpxchg(v, old, new)					\
+#define atomic_add(i, v) (__atomic_add_fetch(&(v)->counter, i, __ATOMIC_RELAXED) - i) // <=> atomic_fetch_add_explicit(v, i, memory_order_relaxed) returning old value
+#define atomic_add_return(i, v) __atomic_add_fetch(&(v)->counter, i, __ATOMIC_SEQ_CST) // <=> atomic_fetch_add(v, i) - i, returning new value
+#define atomic_sub(i, v) (__atomic_sub_fetch(&(v)->counter, i, __ATOMIC_RELAXED) + i) // <=> 	atomic_fetch_sub_explicit(v, i, memory_order_relaxed), returning old value
+#define atomic_inc(v) atomic_add(1, v) // <=> atomic_fetch_add_explicit(v, 1, memory_order_relaxed), returning old value
+#define atomic_inc_return(v) atomic_add_return(1, v) // <=> 	atomic_fetch_add(v, 1) - 1, returning new value
+#define atomic_dec(v) atomic_sub(1, v) // <=> atomic_fetch_sub_explicit(v, 1, memory_order_relaxed), returning old value
+#define atomic_dec_and_test(v) (__atomic_sub_fetch(&(v)->counter, 1, __ATOMIC_SEQ_CST) + 1 == 1) // <=> atomic_fetch_sub(v, 1) == 1, ie old value is 1
+
+
+// Variables of type atomic_t may be stored to using atomic_set() and variables of type atomic_long_t may be stored to using atomic_long_set(). Similarly, variables of these types may be loaded from using atomic_read() and atomic_long_read(). The historical definition of these primitives has lacked any sort of concurrency-safe semantics, so the user is responsible for ensuring that these primitives are not used concurrently in a conflicting manner.
+// That said, many architectures treat atomic_read() and atomic_long_read() as volatile memory_order_relaxed loads and a few architectures treat atomic_set() and atomic_long_set() as memory_order_relaxed stores.
+#define atomic_set(v, i) WRITE_ONCE((v)->counter, i)
+#define atomic_read(v) READ_ONCE((v)->counter)
+#define atomic_cmpxchg(v, old, new)	/*this looks good?*/				\
 	__atomic_compare_exchange(&(v)->counter, &old, &new, 0,		\
 				  __ATOMIC_RELAXED, __ATOMIC_RELAXED)
 
