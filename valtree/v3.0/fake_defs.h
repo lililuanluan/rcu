@@ -78,7 +78,8 @@
 
 /* Optimization barrier */
 /* The "volatile" is due to gcc bugs */
-#define barrier() __asm__ volatile("": : :"memory")
+// barrier(), which can be modeled as an atomic_signal_fence(memory_order_acq_rel) or an atomic_signal_fence(memory_order_seq_cst).
+#define barrier() atomic_signal_fence(memory_order_acq_rel)
 
 /* Other barriers -- x86 config by default */
 #ifdef PSO
@@ -118,43 +119,49 @@
 
 # define smp_mb__after_unlock_lock()     do { } while (0)
 #else /* #ifdef PSO */
-# define mb()    __asm__ volatile("mfence":::"memory")
-# define rmb()   __asm__ volatile("lfence":::"memory")
-# define wmb()   __asm__ volatile("sfence" ::: "memory")
+# define mb()    atomic_thread_fence(memory_order_seq_cst)
+# define rmb()   atomic_thread_fence(memory_order_acquire)
+# define wmb()   atomic_thread_fence(memory_order_release)
 
 # define dma_rmb()       barrier()
 # define dma_wmb()       barrier()
 
+// smp_mb(), which does not have a direct C11 or C++11 counterpart. On an ARM, PowerPC, or x86 system, it can be modeled as a full memory-barrier instruction (dmb, sync, and mfence, respectively). On an Itanium system, it can be modeled as an mf instruction, but this relies on gcc emitting an ld.acq for an READ_ONCE() and an st.rel for an WRITE_ONCE().
 # define smp_mb()        mb()
+// smp_rmb(), which can be modeled (overly conservatively) as an atomic_thread_fence(memory_order_acq_rel).
 # define smp_rmb()       dma_rmb()
+// smp_wmb(), which can be modeled (again overly conservatively) as an atomic_thread_fence(memory_order_acq_rel). 
 # define smp_wmb()       barrier()
 
+// smp_read_barrier_depends(), which is a no-op on all architectures other than Alpha
 # define read_barrier_depends()          do { } while (0)
 # define smp_read_barrier_depends()      do { } while (0)
 
+// An smp_store_release() may be modeled as a volatile memory_order_release store. 
+// Similarly, an smp_load_acquire() may be modeled as a volatile memory_order_acquire load.
 # define smp_store_release(p, v)			\
 	do {						\
-		barrier();				\
-		ACCESS_ONCE(*p) = (v);			\
+		__atomic_store_n(&(p), (v), __ATOMIC_RELEASE);	\
 	} while (0)
 
 # define smp_load_acquire(p)				\
 	({						\
-		__typeof__(*p) ___p1 = ACCESS_ONCE(*p);	\
-							\
-		barrier();				\
-		___p1;					\
+		__atomic_load_n(&(p), __ATOMIC_ACQUIRE);	\
 	})
 
+// smp_mb__before_atomic(), which provides a full memory barrier before the immediately following non-value-returning atomic operation.
 # define smp_mb__before_atomic() barrier()
+// smp_mb__after_atomic(), which provides a full memory barrier after the immediately preceding non-value-returning atomic operation.
 # define smp_mb__after_atomic()  barrier()
 # define smp_mb__before_atomic_inc() barrier()
 # define smp_mb__after_atomic_inc() barrier()
 
-# define smp_mb__after_unlock_lock()     do { } while (0)
+// smp_mb__after_unlock_lock(), which provides a full memory barrier after the immediately preceding lock operation, but only when paired with a preceding unlock operation by this same thread or a preceding unlock operation on the same lock variable.
+# define smp_mb__after_unlock_lock()     atomic_thread_fence(memory_order_seq_cst)
 #endif /* #ifdef PSO */
 
 /* Atomic data types */
+// Atomic operations have three sets of operations, those that are defined on atomic_t, those that are defined on atomic_long_t, and those that are defined on aligned machine-sized variables, currently restricted to int and long. However, in the near term, it should be acceptable to focus on a small subset of these operations.
 typedef struct {
 	int counter;
 } atomic_t;
