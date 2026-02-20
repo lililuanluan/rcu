@@ -4,7 +4,7 @@ Copyright (C) 2024 MPI-SWS. All rights reserved.
 *** Compilation complete.
 *** Transformation complete.
 Error: Non-atomic race!
-Event (1, 19) conflicts with event (0, 392) in graph:
+Event (2, 110) conflicts with event (0, 418) in graph:
 <-1, 0> main:
 	(0, 1): Wna (rcu_scheduler_fully_active, 1) L.111
 	(0, 2): Rna (stderr, 0x0) [INIT] rcutree_plugin.h:910
@@ -397,7 +397,7 @@ Event (1, 19) conflicts with event (0, 392) in graph:
 	(0, 389): Wna (local_irq_depth[1], 0) fake_sched.h:145
 	(0, 390): Wrel (irq_lock[1].__private, 0) pthread.h:380
 	(0, 391): Far rcupdate.h:112
-	(0, 392): Rna (x, 0) [INIT] L.52
+	(0, 392): Rsc (x, 0) [INIT] L.52
 	(0, 393): Wna (r_x, 0) L.52
 	(0, 394): Rna (local_irq_depth[1], 0) [(0, 389)] fake_sched.h:153
 	(0, 395): CRacq (irq_lock[1].__private, 0) [(0, 390)] pthread.h:372
@@ -539,7 +539,7 @@ Event (1, 19) conflicts with event (0, 392) in graph:
 	(0, 531): Rna (local_irq_depth[1], 1) [(0, 526)] fake_sched.h:145
 	(0, 532): Wna (local_irq_depth[1], 0) fake_sched.h:145
 	(0, 533): Wrel (irq_lock[1].__private, 0) pthread.h:380
-	(0, 534): Rna (y, 0) [INIT] L.62
+	(0, 534): Rsc (y, 0) [INIT] L.62
 	(0, 535): Wna (r_y, 0) L.62
 	(0, 536): Far rcupdate.h:117
 	(0, 537): Rna (rcu_sched_data[1].gpnum, 0) [(0, 281)] rcutree.c:167
@@ -728,9 +728,158 @@ Event (1, 19) conflicts with event (0, 392) in graph:
 	(1, 16): Rna (local_irq_depth[0], 1) [(1, 5)] fake_sched.h:145
 	(1, 17): Wna (local_irq_depth[0], 0) fake_sched.h:145
 	(1, 18): Wrel (irq_lock[0].__private, 0) pthread.h:380
-	(1, 19): Wna (x, 1) L.78
+	(1, 19): Wsc (x, 1) L.78
+	(1, 20): MALLOC rcu
+	(1, 21): Wrlx (rcu.completion.done, 0) fake_sync.h:260
+	(1, 22): Wna (rcu.head.func, 0x5cb14f059ab8) rcutree.c:1537
+	(1, 23): Wna (rcu.head.next, 0x0) rcutree.c:1538
+	(1, 24): Fsc rcutree.c:1540
+	(1, 25): Rna (local_irq_depth[0], 0) [(1, 17)] fake_sched.h:137
+	(1, 26): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(1, 27): CRacq (irq_lock[0].__private, 0) [(1, 18)] pthread.h:372
+	(1, 28): CWacq (irq_lock[0].__private, 1)
+	(1, 29): Rna (rcu_sched_state.rda, 0x8000000000000250) [(0, 22)] rcutree.c:1549
+	(1, 30): Rna (rcu_sched_data[0].nxttail[3], 0x8000000000000280) [(0, 42)] rcutree.c:1552
+	(1, 31): Wna (rcu_sched_data[0].nxtlist, 0x4000000000000000) rcutree.c:1552
+	(1, 32): Wna (rcu_sched_data[0].nxttail[3], 0x4000000000000000) rcutree.c:1553
+	(1, 33): Rna (rcu_sched_data[0].qlen, 0) [(0, 43)] rcutree.c:1554
+	(1, 34): Wna (rcu_sched_data[0].qlen, 1) rcutree.c:1554
+	(1, 35): Rna (local_irq_depth[0], 1) [(1, 26)] fake_sched.h:169
+	(1, 36): Rna (local_irq_depth[0], 1) [(1, 26)] fake_sched.h:145
+	(1, 37): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(1, 38): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(1, 39): Rna (local_irq_depth[0], 0) [(1, 37)] fake_sched.h:137
+	(1, 40): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(1, 41): CRacq (irq_lock[0].__private, 0) [(1, 38)] pthread.h:372
+	(1, 42): CWacq (irq_lock[0].__private, 1)
+	(1, 43): Rna (rcu_dynticks[0].dynticks_nesting, 1) [(1, 9)] rcutree.c:356
+	(1, 44): Wna (rcu_dynticks[0].dynticks_nesting, 0) rcutree.c:356
+	(1, 45): Far rcutree.c:361
+	(1, 46): URrlx (rcu_dynticks[0].dynticks.counter, 3) [(1, 12)] rcutree.c:362
+	(1, 47): UWrlx (rcu_dynticks[0].dynticks.counter, 4)
+	(1, 48): Far rcutree.c:363
+	(1, 49): Rrlx (rcu_dynticks[0].dynticks.counter, 4) [(1, 47)] rcutree.c:364
+	(1, 50): Rrlx (rcu_dynticks[0].dynticks.counter, 4) [(1, 47)] rcutree.c:364
+	(1, 51): Rna (local_irq_depth[0], 1) [(1, 40)] fake_sched.h:145
+	(1, 52): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(1, 53): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(1, 54): Rna (local_irq_depth[0], 0) [(1, 52)] fake_sched.h:174
+	(1, 55): Wrel (cpu_lock[0].__private, 0) pthread.h:380
+	(1, 56): Rrlx (rcu.completion.done, 0) [(1, 21)] fake_sync.h:269
+	(1, 57): BLOCK[spinloop]
 <0, 2> thread_helper:
+	(2, 1): Rna (cpu0, 0) [INIT] L.91
+	(2, 2): CRacq (cpu_lock[0].__private, 0) [(1, 55)] pthread.h:372
+	(2, 3): CWacq (cpu_lock[0].__private, 1)
+	(2, 4): Rna (local_irq_depth[0], 0) [(1, 52)] fake_sched.h:137
+	(2, 5): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(2, 6): CRacq (irq_lock[0].__private, 0) [(1, 53)] pthread.h:372
+	(2, 7): CWacq (irq_lock[0].__private, 1)
+	(2, 8): Rna (rcu_dynticks[0].dynticks_nesting, 0) [(1, 44)] rcutree.c:388
+	(2, 9): Wna (rcu_dynticks[0].dynticks_nesting, 1) rcutree.c:388
+	(2, 10): Far rcutree.c:392
+	(2, 11): URrlx (rcu_dynticks[0].dynticks.counter, 4) [(1, 47)] rcutree.c:393
+	(2, 12): UWrlx (rcu_dynticks[0].dynticks.counter, 5)
+	(2, 13): Far rcutree.c:395
+	(2, 14): Rrlx (rcu_dynticks[0].dynticks.counter, 5) [(2, 12)] rcutree.c:396
+	(2, 15): Rrlx (rcu_dynticks[0].dynticks.counter, 5) [(2, 12)] rcutree.c:396
+	(2, 16): Rna (local_irq_depth[0], 1) [(2, 5)] fake_sched.h:145
+	(2, 17): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(2, 18): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(2, 19): Rna (local_irq_depth[0], 0) [(2, 17)] fake_sched.h:153
+	(2, 20): CRacq (irq_lock[0].__private, 0) [(2, 18)] pthread.h:372
+	(2, 21): CWacq (irq_lock[0].__private, 1)
+	(2, 22): Wna (local_irq_depth[0], 1) fake_sched.h:157
+	(2, 23): Rna (local_irq_depth[0], 1) [(2, 22)] fake_sched.h:137
+	(2, 24): Wna (local_irq_depth[0], 2) fake_sched.h:137
+	(2, 25): Rna (rcu_dynticks[0].dynticks_nesting, 1) [(2, 9)] rcutree.c:388
+	(2, 26): Wna (rcu_dynticks[0].dynticks_nesting, 2) rcutree.c:388
+	(2, 27): Rna (local_irq_depth[0], 2) [(2, 24)] fake_sched.h:145
+	(2, 28): Wna (local_irq_depth[0], 1) fake_sched.h:145
+	(2, 29): Rna (rcu_bh_data[0].gpnum, 0) [(0, 233)] rcutree.c:176
+	(2, 30): Wna (rcu_bh_data[0].passed_quiesc_completed, -1) rcutree.c:176
+	(2, 31): Far rcutree.c:177
+	(2, 32): Wna (rcu_bh_data[0].passed_quiesc, 1) rcutree.c:178
+	(2, 33): Rna (rcu_sched_data[0].mynode, 0x8000000000000000) [(0, 26)] rcutree.c:1689
+	(2, 34): Rna (rcu_sched_data[0].n_rp_qs_pending, 0) [INIT] rcutree.c:1691
+	(2, 35): Wna (rcu_sched_data[0].n_rp_qs_pending, 1) rcutree.c:1691
+	(2, 36): Rna (rcu_cpu_stall_suppress, 0) [INIT] rcutree.c:619
+	(2, 37): Rrlx (jiffies, 0) [INIT] rcutree.c:621
+	(2, 38): Rrlx (rcu_sched_state.jiffies_stall, 0) [INIT] rcutree.c:622
+	(2, 39): Rna (rcu_sched_data[0].mynode, 0x8000000000000000) [(0, 26)] rcutree.c:623
+	(2, 40): Rrlx (rcu_sched_state.node[0].qsmask, 0) [(0, 10)] rcutree.c:624
+	(2, 41): Rna (rcu_sched_data[0].grpmask, 1) [(0, 37)] rcutree.c:624
+	(2, 42): Rrlx (rcu_sched_state.completed, -300) [INIT] rcutree.c:152
+	(2, 43): Rrlx (rcu_sched_state.gpnum, -300) [INIT] rcutree.c:152
+	(2, 44): Rna (rcu_sched_data[0].qs_pending, 1) [(0, 165)] rcutree.c:1697
+	(2, 45): Rna (rcu_sched_data[0].passed_quiesc, 0) [(0, 164)] rcutree.c:1697
+	(2, 46): Rna (rcu_sched_data[0].n_rp_report_qs, 0) [INIT] rcutree.c:1704
+	(2, 47): Wna (rcu_sched_data[0].n_rp_report_qs, 1) rcutree.c:1704
+	(2, 48): Rna (rcu_sched_data[0].preemptible, 0) [(0, 167)] rcutree.c:1705
+	(2, 49): Rrlx (rcu_sched_state.jiffies_force_qs, 0) [INIT] rcutree.c:1706
+	(2, 50): Rna (jiffies, 0) [INIT] rcutree.c:1706
+	(2, 51): Rna (rcu_sched_data[0].nxttail[0], 0x8000000000000280) [(0, 39)] rcutree.c:280
+	(2, 52): Rna (rcu_sched_data[0].nxttail[0], 0x8000000000000280) [(0, 39)] rcutree.c:289
+	(2, 53): Rna (rcu_sched_data[0].nxtlist, 0x4000000000000000) [(1, 31)] rcutree.c:289
+	(2, 54): Rrlx (rcu_sched_state.completed, -300) [INIT] rcutree.c:152
+	(2, 55): Rrlx (rcu_sched_state.gpnum, -300) [INIT] rcutree.c:152
+	(2, 56): Rna (rcu_sched_data[0].n_rp_gp_completed, 0) [INIT] rcutree.c:1722
+	(2, 57): Wna (rcu_sched_data[0].n_rp_gp_completed, 1) rcutree.c:1722
+	(2, 58): Wna (need_softirq[0], 1) rcutree.c:1526
+	(2, 59): Wna (local_irq_depth[0], 0) fake_sched.h:162
+	(2, 60): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(2, 61): Rna (need_softirq[0], 1) [(2, 58)] fake_sched.h:192
+	(2, 62): Rna (rcu_sched_data[0].beenonline, 1) [(0, 166)] rcutree.c:1464
+	(2, 63): Rna (rcu_sched_data[0].beenonline, 1) [(0, 166)] rcutree.c:1464
+	(2, 64): Rrlx (rcu_sched_state.jiffies_force_qs, 0) [INIT] rcutree.c:1470
+	(2, 65): Rna (jiffies, 0) [INIT] rcutree.c:1470
+	(2, 66): Rna (local_irq_depth[0], 0) [(2, 59)] fake_sched.h:137
+	(2, 67): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(2, 68): CRacq (irq_lock[0].__private, 0) [(2, 60)] pthread.h:372
+	(2, 69): CWacq (irq_lock[0].__private, 1)
+	(2, 70): Rna (rcu_sched_data[0].mynode, 0x8000000000000000) [(0, 26)] rcutree.c:787
+	(2, 71): Rna (rcu_sched_data[0].completed, 0) [(0, 190)] rcutree.c:788
+	(2, 72): Rrlx (rcu_sched_state.node[0].completed, 0) [INIT] rcutree.c:788
+	(2, 73): Rna (local_irq_depth[0], 1) [(2, 67)] fake_sched.h:145
+	(2, 74): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(2, 75): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(2, 76): Rna (local_irq_depth[0], 0) [(2, 74)] fake_sched.h:137
+	(2, 77): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(2, 78): CRacq (irq_lock[0].__private, 0) [(2, 75)] pthread.h:372
+	(2, 79): CWacq (irq_lock[0].__private, 1)
+	(2, 80): Rna (rcu_sched_data[0].gpnum, 0) [(0, 188)] rcutree.c:727
+	(2, 81): Rna (rcu_sched_state.gpnum, -300) [INIT] rcutree.c:727
+	(2, 82): Rna (local_irq_depth[0], 1) [(2, 77)] fake_sched.h:137
+	(2, 83): Wna (local_irq_depth[0], 2) fake_sched.h:137
+	(2, 84): Rna (rcu_sched_data[0].mynode, 0x8000000000000000) [(0, 26)] rcutree.c:705
+	(2, 85): Rna (rcu_sched_data[0].gpnum, 0) [(0, 188)] rcutree.c:706
+	(2, 86): Rrlx (rcu_sched_state.node[0].gpnum, 0) [(0, 9)] rcutree.c:706
+	(2, 87): Rna (local_irq_depth[0], 2) [(2, 83)] fake_sched.h:145
+	(2, 88): Wna (local_irq_depth[0], 1) fake_sched.h:145
+	(2, 89): Rna (local_irq_depth[0], 1) [(2, 88)] fake_sched.h:145
+	(2, 90): Wna (local_irq_depth[0], 0) fake_sched.h:145
+	(2, 91): Wrel (irq_lock[0].__private, 0) pthread.h:380
+	(2, 92): Rna (rcu_sched_data[0].nxttail[0], 0x8000000000000280) [(0, 39)] rcutree.c:289
+	(2, 93): Rna (rcu_sched_data[0].nxtlist, 0x4000000000000000) [(1, 31)] rcutree.c:289
+	(2, 94): Rrlx (rcu_sched_state.completed, -300) [INIT] rcutree.c:152
+	(2, 95): Rrlx (rcu_sched_state.gpnum, -300) [INIT] rcutree.c:152
+	(2, 96): Rna (local_irq_depth[0], 0) [(2, 90)] fake_sched.h:137
+	(2, 97): Wna (local_irq_depth[0], 1) fake_sched.h:137
+	(2, 98): CRacq (irq_lock[0].__private, 0) [(2, 91)] pthread.h:372
+	(2, 99): CWacq (irq_lock[0].__private, 1)
+	(2, 100): Far fake_sync.h:81
+	(2, 101): CRacq (rcu_sched_state.node[0].lock.__private, 0) [(0, 286)] pthread.h:372
+	(2, 102): CWacq (rcu_sched_state.node[0].lock.__private, 1)
+	(2, 103): Rna (rcu_sched_state.rda, 0x8000000000000250) [(0, 22)] rcutree.c:836
+	(2, 104): Rna (rcu_sched_data[0].nxttail[0], 0x8000000000000280) [(0, 39)] rcutree.c:289
+	(2, 105): Rna (rcu_sched_data[0].nxtlist, 0x4000000000000000) [(1, 31)] rcutree.c:289
+	(2, 106): Rrlx (rcu_sched_state.completed, -300) [INIT] rcutree.c:152
+	(2, 107): Rrlx (rcu_sched_state.gpnum, -300) [INIT] rcutree.c:152
+	(2, 108): Rna (rcu_sched_state.gpnum, 0) [INIT] rcutree.c:839
+	(2, 109): Rna (rcu_sched_state.gpnum, -300) [INIT] rcutree.c:863
+	(2, 110): Wna (rcu_sched_state.gpnum, -299) rcutree.c:863
 Coherence:
+cpu_lock[0].__private: [ (1, 3): CWacq (GU#1992, 1) (1, 55): Wrel (GU#1992, 0) (2, 3): CWacq (GU#1992, 1) ]
 need_softirq[1]: [ (0, 454): Wna (GU#2040, 1) (0, 524): Wna (GU#2040, 0) (0, 606): Wna (GU#2040, 1) (0, 676): Wna (GU#2040, 0) ]
 rcu_sched_data[1].n_rp_qs_pending: [ (0, 410): Wna (GU#1040, 1) (0, 591): Wna (GU#1040, 2) ]
 cpu_lock[1].__private: [ (0, 375): CWacq (GU#1996, 1) (0, 557): Wrel (GU#1996, 0) (0, 559): CWacq (GU#1996, 1) (0, 702): Wrel (GU#1996, 0) ]
@@ -738,17 +887,22 @@ irq_lock[1].__private: [ (0, 358): CWacq (GU#2008, 1) (0, 369): Wrel (GU#2008, 0
 rcu_sched_data[1].passed_quiesc_completed: [ (0, 285): Wna (GU#872, -1) (0, 538): Wna (GU#872, -1) ]
 rcu_bh_state.node[0].grpmask: [ (0, 86): Wna (GU#344, 0) (0, 229): Wna (GU#344, 1) (0, 322): Wna (GU#344, 3) ]
 rcu_bh_state.node[0].lock.__private: [ (0, 83): Wna (GU#296, 0) (0, 109): CWacq (GU#296, 1) (0, 121): Wrel (GU#296, 0) (0, 136): CWacq (GU#296, 1) (0, 148): Wrel (GU#296, 0) (0, 208): CWacq (GU#296, 1) (0, 218): Wrel (GU#296, 0) (0, 227): CWacq (GU#296, 1) (0, 238): Wrel (GU#296, 0) (0, 301): CWacq (GU#296, 1) (0, 311): Wrel (GU#296, 0) (0, 320): CWacq (GU#296, 1) (0, 331): Wrel (GU#296, 0) ]
-local_irq_depth[0]: [ (0, 29): Wna (GU#2028, 1) (0, 48): Wna (GU#2028, 0) (0, 56): Wna (GU#2028, 1) (0, 75): Wna (GU#2028, 0) (0, 104): Wna (GU#2028, 1) (0, 123): Wna (GU#2028, 0) (0, 131): Wna (GU#2028, 1) (0, 150): Wna (GU#2028, 0) (0, 158): Wna (GU#2028, 1) (0, 198): Wna (GU#2028, 0) (0, 203): Wna (GU#2028, 1) (0, 243): Wna (GU#2028, 0) (0, 251): Wna (GU#2028, 1) (0, 291): Wna (GU#2028, 0) (0, 296): Wna (GU#2028, 1) (0, 336): Wna (GU#2028, 0) (0, 340): Wna (GU#2028, 1) (0, 352): Wna (GU#2028, 0) (1, 5): Wna (GU#2028, 1) (1, 17): Wna (GU#2028, 0) ]
+local_irq_depth[0]: [ (0, 29): Wna (GU#2028, 1) (0, 48): Wna (GU#2028, 0) (0, 56): Wna (GU#2028, 1) (0, 75): Wna (GU#2028, 0) (0, 104): Wna (GU#2028, 1) (0, 123): Wna (GU#2028, 0) (0, 131): Wna (GU#2028, 1) (0, 150): Wna (GU#2028, 0) (0, 158): Wna (GU#2028, 1) (0, 198): Wna (GU#2028, 0) (0, 203): Wna (GU#2028, 1) (0, 243): Wna (GU#2028, 0) (0, 251): Wna (GU#2028, 1) (0, 291): Wna (GU#2028, 0) (0, 296): Wna (GU#2028, 1) (0, 336): Wna (GU#2028, 0) (0, 340): Wna (GU#2028, 1) (0, 352): Wna (GU#2028, 0) (1, 5): Wna (GU#2028, 1) (1, 17): Wna (GU#2028, 0) (1, 26): Wna (GU#2028, 1) (1, 37): Wna (GU#2028, 0) (1, 40): Wna (GU#2028, 1) (1, 52): Wna (GU#2028, 0) (2, 5): Wna (GU#2028, 1) (2, 17): Wna (GU#2028, 0) (2, 22): Wna (GU#2028, 1) (2, 24): Wna (GU#2028, 2) (2, 28): Wna (GU#2028, 1) (2, 59): Wna (GU#2028, 0) (2, 67): Wna (GU#2028, 1) (2, 74): Wna (GU#2028, 0) (2, 77): Wna (GU#2028, 1) (2, 83): Wna (GU#2028, 2) (2, 88): Wna (GU#2028, 1) (2, 90): Wna (GU#2028, 0) (2, 97): Wna (GU#2028, 1) ]
 rcu_sched_state.node[0].grpmask: [ (0, 11): Wna (GU#48, 0) (0, 184): Wna (GU#48, 1) (0, 277): Wna (GU#48, 3) ]
 rcu_dynticks[1].dynticks.counter: [ (0, 363): UWrlx (GU#1700, 2) (0, 384): UWrlx (GU#1700, 3) (0, 549): UWrlx (GU#1700, 4) (0, 568): UWrlx (GU#1700, 5) (0, 694): UWrlx (GU#1700, 6) ]
-rcu_dynticks[0].dynticks.counter: [ (0, 347): UWrlx (GU#1688, 2) (1, 12): UWrlx (GU#1688, 3) ]
-rcu_sched_state.node[0].lock.__private: [ (0, 8): Wna (GU#0, 0) (0, 34): CWacq (GU#0, 1) (0, 46): Wrel (GU#0, 0) (0, 61): CWacq (GU#0, 1) (0, 73): Wrel (GU#0, 0) (0, 163): CWacq (GU#0, 1) (0, 173): Wrel (GU#0, 0) (0, 182): CWacq (GU#0, 1) (0, 193): Wrel (GU#0, 0) (0, 256): CWacq (GU#0, 1) (0, 266): Wrel (GU#0, 0) (0, 275): CWacq (GU#0, 1) (0, 286): Wrel (GU#0, 0) ]
+rcu_sched_data[0].nxttail[3]: [ (0, 42): Wna (GU#672, 0x8000000000000280) (1, 32): Wna (GU#672, 0x4000000000000000) ]
+rcu_dynticks[0].dynticks.counter: [ (0, 347): UWrlx (GU#1688, 2) (1, 12): UWrlx (GU#1688, 3) (1, 47): UWrlx (GU#1688, 4) (2, 12): UWrlx (GU#1688, 5) ]
+rcu_sched_state.node[0].lock.__private: [ (0, 8): Wna (GU#0, 0) (0, 34): CWacq (GU#0, 1) (0, 46): Wrel (GU#0, 0) (0, 61): CWacq (GU#0, 1) (0, 73): Wrel (GU#0, 0) (0, 163): CWacq (GU#0, 1) (0, 173): Wrel (GU#0, 0) (0, 182): CWacq (GU#0, 1) (0, 193): Wrel (GU#0, 0) (0, 256): CWacq (GU#0, 1) (0, 266): Wrel (GU#0, 0) (0, 275): CWacq (GU#0, 1) (0, 286): Wrel (GU#0, 0) (2, 102): CWacq (GU#0, 1) ]
 local_irq_depth[1]: [ (0, 356): Wna (GU#2032, 1) (0, 368): Wna (GU#2032, 0) (0, 377): Wna (GU#2032, 1) (0, 389): Wna (GU#2032, 0) (0, 397): Wna (GU#2032, 1) (0, 399): Wna (GU#2032, 2) (0, 403): Wna (GU#2032, 1) (0, 455): Wna (GU#2032, 0) (0, 463): Wna (GU#2032, 1) (0, 470): Wna (GU#2032, 0) (0, 473): Wna (GU#2032, 1) (0, 479): Wna (GU#2032, 2) (0, 484): Wna (GU#2032, 1) (0, 486): Wna (GU#2032, 0) (0, 496): Wna (GU#2032, 1) (0, 503): Wna (GU#2032, 0) (0, 506): Wna (GU#2032, 1) (0, 512): Wna (GU#2032, 2) (0, 517): Wna (GU#2032, 1) (0, 519): Wna (GU#2032, 0) (0, 526): Wna (GU#2032, 1) (0, 532): Wna (GU#2032, 0) (0, 542): Wna (GU#2032, 1) (0, 554): Wna (GU#2032, 0) (0, 561): Wna (GU#2032, 1) (0, 573): Wna (GU#2032, 0) (0, 578): Wna (GU#2032, 1) (0, 580): Wna (GU#2032, 2) (0, 584): Wna (GU#2032, 1) (0, 607): Wna (GU#2032, 0) (0, 615): Wna (GU#2032, 1) (0, 622): Wna (GU#2032, 0) (0, 625): Wna (GU#2032, 1) (0, 631): Wna (GU#2032, 2) (0, 636): Wna (GU#2032, 1) (0, 638): Wna (GU#2032, 0) (0, 648): Wna (GU#2032, 1) (0, 655): Wna (GU#2032, 0) (0, 658): Wna (GU#2032, 1) (0, 664): Wna (GU#2032, 2) (0, 669): Wna (GU#2032, 1) (0, 671): Wna (GU#2032, 0) (0, 678): Wna (GU#2032, 1) (0, 684): Wna (GU#2032, 0) (0, 687): Wna (GU#2032, 1) (0, 699): Wna (GU#2032, 0) ]
+rcu_bh_data[0].passed_quiesc_completed: [ (0, 237): Wna (GU#1152, -1) (2, 30): Wna (GU#1152, -1) ]
+rcu_bh_data[0].passed_quiesc: [ (0, 209): Wna (GU#1160, 0) (2, 32): Wna (GU#1160, 1) ]
 rcu_sched_state.fqslock.__private: [ (0, 177): CWacq (GU#200, 1) (0, 196): Wrel (GU#200, 0) (0, 270): CWacq (GU#200, 1) (0, 289): Wrel (GU#200, 0) ]
-irq_lock[0].__private: [ (0, 31): CWacq (GU#2004, 1) (0, 49): Wrel (GU#2004, 0) (0, 58): CWacq (GU#2004, 1) (0, 76): Wrel (GU#2004, 0) (0, 106): CWacq (GU#2004, 1) (0, 124): Wrel (GU#2004, 0) (0, 133): CWacq (GU#2004, 1) (0, 151): Wrel (GU#2004, 0) (0, 160): CWacq (GU#2004, 1) (0, 199): Wrel (GU#2004, 0) (0, 205): CWacq (GU#2004, 1) (0, 244): Wrel (GU#2004, 0) (0, 253): CWacq (GU#2004, 1) (0, 292): Wrel (GU#2004, 0) (0, 298): CWacq (GU#2004, 1) (0, 337): Wrel (GU#2004, 0) (0, 342): CWacq (GU#2004, 1) (0, 353): Wrel (GU#2004, 0) (1, 7): CWacq (GU#2004, 1) (1, 18): Wrel (GU#2004, 0) ]
+irq_lock[0].__private: [ (0, 31): CWacq (GU#2004, 1) (0, 49): Wrel (GU#2004, 0) (0, 58): CWacq (GU#2004, 1) (0, 76): Wrel (GU#2004, 0) (0, 106): CWacq (GU#2004, 1) (0, 124): Wrel (GU#2004, 0) (0, 133): CWacq (GU#2004, 1) (0, 151): Wrel (GU#2004, 0) (0, 160): CWacq (GU#2004, 1) (0, 199): Wrel (GU#2004, 0) (0, 205): CWacq (GU#2004, 1) (0, 244): Wrel (GU#2004, 0) (0, 253): CWacq (GU#2004, 1) (0, 292): Wrel (GU#2004, 0) (0, 298): CWacq (GU#2004, 1) (0, 337): Wrel (GU#2004, 0) (0, 342): CWacq (GU#2004, 1) (0, 353): Wrel (GU#2004, 0) (1, 7): CWacq (GU#2004, 1) (1, 18): Wrel (GU#2004, 0) (1, 28): CWacq (GU#2004, 1) (1, 38): Wrel (GU#2004, 0) (1, 42): CWacq (GU#2004, 1) (1, 53): Wrel (GU#2004, 0) (2, 7): CWacq (GU#2004, 1) (2, 18): Wrel (GU#2004, 0) (2, 21): CWacq (GU#2004, 1) (2, 60): Wrel (GU#2004, 0) (2, 69): CWacq (GU#2004, 1) (2, 75): Wrel (GU#2004, 0) (2, 79): CWacq (GU#2004, 1) (2, 91): Wrel (GU#2004, 0) (2, 99): CWacq (GU#2004, 1) ]
+rcu_sched_data[0].nxtlist: [ (0, 38): Wna (GU#640, 0x0) (1, 31): Wna (GU#640, 0x4000000000000000) ]
 rcu_bh_state.fqslock.__private: [ (0, 222): CWacq (GU#496, 1) (0, 241): Wrel (GU#496, 0) (0, 315): CWacq (GU#496, 1) (0, 334): Wrel (GU#496, 0) ]
 rcu_dynticks[1].dynticks_nesting: [ (0, 360): Wna (GU#1692, 0) (0, 381): Wna (GU#1692, 1) (0, 401): Wna (GU#1692, 2) (0, 530): Wna (GU#1692, 1) (0, 546): Wna (GU#1692, 0) (0, 565): Wna (GU#1692, 1) (0, 582): Wna (GU#1692, 2) (0, 682): Wna (GU#1692, 1) (0, 691): Wna (GU#1692, 0) ]
-rcu_dynticks[0].dynticks_nesting: [ (0, 344): Wna (GU#1680, 0) (1, 9): Wna (GU#1680, 1) ]
+rcu_dynticks[0].dynticks_nesting: [ (0, 344): Wna (GU#1680, 0) (1, 9): Wna (GU#1680, 1) (1, 44): Wna (GU#1680, 0) (2, 9): Wna (GU#1680, 1) (2, 26): Wna (GU#1680, 2) ]
+rcu_sched_data[0].qlen: [ (0, 43): Wna (GU#680, 0) (1, 34): Wna (GU#680, 1) ]
 rcu_bh_data[1].passed_quiesc_completed: [ (0, 330): Wna (GU#1416, -1) (0, 405): Wna (GU#1416, -1) (0, 586): Wna (GU#1416, -1) ]
 rcu_sched_data[1].passed_quiesc: [ (0, 257): Wna (GU#880, 0) (0, 540): Wna (GU#880, 1) ]
 rcu_bh_data[1].passed_quiesc: [ (0, 302): Wna (GU#1424, 0) (0, 407): Wna (GU#1424, 1) (0, 588): Wna (GU#1424, 1) ]
@@ -756,4 +910,4 @@ rcu_bh_data[1].passed_quiesc: [ (0, 302): Wna (GU#1424, 0) (0, 407): Wna (GU#142
 *** Verification unsuccessful.
 Number of complete executions explored: 0
 Number of blocked executions seen: 1
-Total wall-clock time: 0.39s
+Total wall-clock time: 0.68s
