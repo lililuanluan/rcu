@@ -822,7 +822,8 @@ void synchronize_rcu_expedited(void)
 
 	/* Clean up and exit. */
 	smp_mb(); /* ensure expedited GP seen before counter increment. */
-	ACCESS_ONCE(sync_rcu_preempt_exp_count)++;
+	// ACCESS_ONCE(sync_rcu_preempt_exp_count)++;
+	__atomic_add_fetch(&sync_rcu_preempt_exp_count, 1, __ATOMIC_RELAXED);
 unlock_mb_ret:
 	mutex_unlock(&sync_rcu_preempt_exp_mutex);
 mb_ret:
