@@ -25,6 +25,8 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <assert.h>
+#include <stdbool.h>
+#include <stdatomic.h>
 
 /* Definitions taken from the Linux Kernel (v.3.0) */
 
@@ -162,12 +164,12 @@ typedef struct {
 } atomic_long_t;
 
 /* Boolean data types */
-typedef _Bool bool;
+// typedef _Bool bool;
 
-enum {
-	false	= 0,
-	true	= 1
-};
+// enum {
+// 	false	= 0,
+// 	true	= 1
+// };
 
 /* Integer types */
 typedef unsigned long ulong;
