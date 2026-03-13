@@ -8,3 +8,5 @@ litmus
 .venv
 weazer
 out
+prof*
+__pycache__
