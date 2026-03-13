@@ -50,6 +50,9 @@ FUZZ_FLAGS = COMMON_FLAGS + [
     "--num-mutation=3",
     "--insert-rand=30",
     "-fuzz-corpus=20",
+    "--add-max=mutated",
+    "--prio-new-val",
+    "--prio-back-rev",
 ]
 
 # Test definitions: (test_define, unroll)
