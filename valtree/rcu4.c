@@ -16,7 +16,7 @@
  * reader to observe a stable gen/idx pair but a stale slot value.
  */
 
-#define N 20
+#define N 40
 #define SLOTS 4
 
 _Atomic int gen;
