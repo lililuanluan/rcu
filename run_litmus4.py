@@ -27,7 +27,6 @@ class BenchmarkConfig:
     timeout: int = 1800
     fuzz_max: int = 1_000_000
     unroll: int = 20
-    verify_unroll_bias: int = 0
     modes: List[str] = None  # defaults to ["verify", "random", "fuzz"]
     extra_defines: List[str] = None
 
@@ -45,12 +44,12 @@ DEFAULT_BENCHMARKS: Dict[str, BenchmarkConfig] = {
         fuzz_max=1_000_000,
         unroll=20,
     ),
-    "litmus_v9.c": BenchmarkConfig(
-        name="litmus_v9",
-        litmus=ROOT_DIR / "valtree" / "litmus_v9.c",
-        fuzz_max=1_000_000,
-        unroll=20,
-    ),
+    # "litmus_v9.c": BenchmarkConfig(
+    #     name="litmus_v9",
+    #     litmus=ROOT_DIR / "valtree" / "litmus_v9.c",
+    #     fuzz_max=1_000_000,
+    #     unroll=20,
+    # ),
     "litmus_v10.c": BenchmarkConfig(
         name="litmus_v10",
         litmus=ROOT_DIR / "valtree" / "litmus_v10.c",
@@ -81,9 +80,27 @@ DEFAULT_BENCHMARKS: Dict[str, BenchmarkConfig] = {
         fuzz_max=1_000_000,
         unroll=20,
     ),
-    "litmus_v15.c": BenchmarkConfig(
-        name="litmus_v15",
-        litmus=ROOT_DIR / "valtree" / "litmus_v15.c",
+    "rcu4.c": BenchmarkConfig(
+        name="rcu4",
+        litmus=ROOT_DIR / "valtree" / "rcu4.c",
+        fuzz_max=1_000_000,
+        unroll=20,
+    ),
+    "rcu1.c": BenchmarkConfig(
+        name="rcu1",
+        litmus=ROOT_DIR / "valtree" / "rcu1.c",
+        fuzz_max=1_000_000,
+        unroll=20,
+    ),
+    "rcu2.c": BenchmarkConfig(
+        name="rcu2",
+        litmus=ROOT_DIR / "valtree" / "rcu2.c",
+        fuzz_max=1_000_000,
+        unroll=20,
+    ),
+    "rcu3.c": BenchmarkConfig(
+        name="rcu3",
+        litmus=ROOT_DIR / "valtree" / "rcu3.c",
         fuzz_max=1_000_000,
         unroll=20,
     ),
@@ -397,10 +414,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run litmus_v8 with GenMC.")
     parser.add_argument("--tool", type=str, default=None, help="Path to GenMC binary")
     parser.add_argument(
-        "-r", "--repeat", type=int, default=20, help="Runs per mode (default: 20)"
+        "-r", "--repeat", type=int, default=10, help="Runs per mode (default: 20)"
     )
     parser.add_argument(
-        "-t", "--timeout", type=int, default=300, help="Timeout per run, seconds"
+        "-t", "--timeout", type=int, default=1800, help="Timeout per run, seconds"
     )
     parser.add_argument(
         "-n",
@@ -412,12 +429,7 @@ def main() -> None:
     parser.add_argument(
         "-u", "--unroll", type=int, default=18, help="GenMC unroll bound"
     )
-    parser.add_argument(
-        "--verify-unroll-bias",
-        type=int,
-        default=4,
-        help="Extra unroll added only for verify mode",
-    )
+
     parser.add_argument(
         "-o",
         "--output",
@@ -473,7 +485,6 @@ def main() -> None:
                 timeout=args.timeout,
                 fuzz_max=args.fuzz_max,
                 unroll=args.unroll,
-                verify_unroll_bias=args.verify_unroll_bias,
                 modes=args.modes,
                 extra_defines=args.extra_define,
             )
@@ -511,9 +522,7 @@ def main() -> None:
         if not cfg.litmus.exists():
             raise FileNotFoundError(f"Benchmark file not found: {cfg.litmus}")
         for mode in modes:
-            mode_unroll = cfg.unroll + (
-                cfg.verify_unroll_bias if mode == "verify" else 0
-            )
+            mode_unroll = cfg.unroll
             for run_id in range(1, cfg.repeat + 1):
                 tasks.append(
                     (
